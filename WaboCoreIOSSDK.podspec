@@ -1,6 +1,6 @@
 Pod::Spec.new do |spec|
   spec.name = "WaboCoreIOSSDK"
-  spec.version="0.0.2"
+  spec.version="0.0.3"
   spec.summary = "Wabo SDK core sdk"
   spec.description= <<-DESC
   Wabo SDK for core
@@ -14,6 +14,7 @@ Pod::Spec.new do |spec|
   spec.vendored_frameworks = 'WaboCoreIOSSDK/*.{framework}'
   spec.public_header_files = 'WaboCoreIOSSDK/*.{framework}/Headers/*.h'
   spec.pod_target_xcconfig = { 'VALID_ARCHS' => 'arm64' }
+  spec.swift_version = '5.0'
   spec.dependency 'AliyunLogProducer', '2.2.25'
   spec.dependency 'SAMKeychain', '1.5.3'
   spec.dependency 'Adjust', '4.32.1'
