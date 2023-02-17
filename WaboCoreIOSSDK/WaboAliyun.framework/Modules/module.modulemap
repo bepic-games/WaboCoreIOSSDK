@@ -1,0 +1,11 @@
+framework module WaboAliyun {
+  umbrella header "WaboAliyun.h"
+
+  export *
+  module * { export * }
+}
+
+module WaboAliyun.Swift {
+  header "WaboAliyun-Swift.h"
+  requires objc
+}

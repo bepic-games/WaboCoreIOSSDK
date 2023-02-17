@@ -1,0 +1,11 @@
+framework module WaboAdjust {
+  umbrella header "WaboAdjust.h"
+
+  export *
+  module * { export * }
+}
+
+module WaboAdjust.Swift {
+  header "WaboAdjust-Swift.h"
+  requires objc
+}

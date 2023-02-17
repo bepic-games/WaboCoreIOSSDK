@@ -1,0 +1,11 @@
+framework module WaboSDK {
+  umbrella header "WaboSDK.h"
+
+  export *
+  module * { export * }
+}
+
+module WaboSDK.Swift {
+  header "WaboSDK-Swift.h"
+  requires objc
+}

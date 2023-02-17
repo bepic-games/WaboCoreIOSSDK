@@ -1,0 +1,11 @@
+framework module WaboBase {
+  umbrella header "WaboBase.h"
+
+  export *
+  module * { export * }
+}
+
+module WaboBase.Swift {
+  header "WaboBase-Swift.h"
+  requires objc
+}
