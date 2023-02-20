@@ -15,4 +15,4 @@ FOUNDATION_EXPORT const unsigned char WaboSDKVersionString[];
 
 // In this header, you should import all the public headers of your framework using statements like #import <WaboSDK/PublicHeader.h>
 
-#import <WaboBase/WaboBase.h>
+// #import <WaboBase/WaboBase.h>
