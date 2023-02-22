@@ -233,6 +233,7 @@ using UInt = size_t;
 @import Foundation;
 @import ObjectiveC;
 @import UIKit;
+@import WaboBase;
 #endif
 
 #endif
@@ -331,7 +332,16 @@ SWIFT_CLASS("_TtC7WaboSDK11WaboFactory")
 
 
 SWIFT_CLASS("_TtC7WaboSDK20WaboFirebaseAnalysis")
-@interface WaboFirebaseAnalysis : NSObject
+@interface WaboFirebaseAnalysis : NSObject <WaboThirdUploadLoggerProtocol>
+- (void)registerEvent;
+- (void)login;
+- (void)level:(NSInteger)level;
+- (void)subscription:(double)price :(NSString * _Nonnull)currency :(NSString * _Nonnull)orderId;
+- (void)adShow:(NSString * _Nonnull)adType :(NSString * _Nonnull)mediationPlatform :(NSString * _Nonnull)networkName :(NSString * _Nonnull)displayName :(NSString * _Nonnull)adUnitId :(double)revenue;
+- (void)addToCart:(double)price :(NSString * _Nonnull)currency :(NSString * _Nonnull)contentId;
+- (void)initCheckout:(double)price :(NSString * _Nonnull)currency :(NSString * _Nonnull)contentId SWIFT_METHOD_FAMILY(none);
+- (void)purchase:(double)price :(NSString * _Nonnull)currency :(NSString * _Nonnull)contentId;
+- (void)incRevenue:(double)price;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
 
@@ -419,6 +429,11 @@ SWIFT_CLASS("_TtC7WaboSDK7WaboSDK")
 - (void)onWaboLoginInitDelegate:(id _Nullable)any;
 - (void)onWaboPurchaseInitDelegate:(id _Nullable)any;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+@end
+
+
+@interface WaboSDK (SWIFT_EXTENSION(WaboSDK))
+- (void)onMessaging:(NSString * _Nonnull)token;
 @end
 
 

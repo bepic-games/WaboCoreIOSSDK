@@ -364,6 +364,7 @@ SWIFT_PROTOCOL("_TtP8WaboBase29WaboThirdUploadLoggerProtocol_")
 - (void)addToCart:(double)price :(NSString * _Nonnull)currency :(NSString * _Nonnull)contentId;
 - (void)initCheckout:(double)price :(NSString * _Nonnull)currency :(NSString * _Nonnull)contentId SWIFT_METHOD_FAMILY(none);
 - (void)purchase:(double)price :(NSString * _Nonnull)currency :(NSString * _Nonnull)contentId;
+- (void)incRevenue:(double)price;
 - (void)subscription:(double)price :(NSString * _Nonnull)currency :(NSString * _Nonnull)orderId;
 - (void)adShow:(NSString * _Nonnull)adType :(NSString * _Nonnull)mediationPlatform :(NSString * _Nonnull)networkName :(NSString * _Nonnull)displayName :(NSString * _Nonnull)adUnitId :(double)revenue;
 - (void)log:(NSString * _Nonnull)eventName :(NSDictionary<NSString *, id> * _Nonnull)params;
@@ -373,6 +374,7 @@ SWIFT_PROTOCOL("_TtP8WaboBase29WaboThirdUploadLoggerProtocol_")
 SWIFT_CLASS("_TtC8WaboBase28WaboThirdUploadLoggerService")
 @interface WaboThirdUploadLoggerService : NSObject
 + (WaboThirdUploadLoggerService * _Nonnull)sharedInstance SWIFT_WARN_UNUSED_RESULT;
+@property (nonatomic, copy) NSArray<id <WaboThirdUploadLoggerProtocol>> * _Nonnull loggers;
 - (void)gameStart;
 - (void)registerEvent;
 - (void)login;
@@ -380,6 +382,7 @@ SWIFT_CLASS("_TtC8WaboBase28WaboThirdUploadLoggerService")
 - (void)addToCart:(double)price :(NSString * _Nonnull)currency :(NSString * _Nonnull)contentId;
 - (void)initCheckout:(double)price :(NSString * _Nonnull)currency :(NSString * _Nonnull)contentId SWIFT_METHOD_FAMILY(none);
 - (void)purchase:(double)price :(NSString * _Nonnull)currency :(NSString * _Nonnull)contentId;
+- (void)incRevenue:(double)revenue;
 - (void)subscription:(double)price :(NSString * _Nonnull)currency :(NSString * _Nonnull)orderId;
 - (void)adShow:(NSString * _Nonnull)adType :(NSString * _Nonnull)mediationPlatform :(NSString * _Nonnull)networkName :(NSString * _Nonnull)displayName :(NSString * _Nonnull)adUnitId :(double)revenue;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
