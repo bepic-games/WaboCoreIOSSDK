@@ -254,6 +254,17 @@ using UInt = size_t;
 #endif
 
 #if defined(__OBJC__)
+@class NSString;
+
+SWIFT_CLASS("_TtC7WaboSDK18WaboAdCallbackInfo")
+@interface WaboAdCallbackInfo : NSObject
+@property (nonatomic) double revenue;
+@property (nonatomic, copy) NSString * _Nullable network;
+@property (nonatomic, copy) NSString * _Nullable placementId;
+@property (nonatomic, copy) NSString * _Nullable adsourceId;
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+@end
+
 
 SWIFT_CLASS("_TtC7WaboSDK19WaboAdjustAttribute")
 @interface WaboAdjustAttribute : NSObject
@@ -272,7 +283,6 @@ SWIFT_CLASS("_TtC7WaboSDK22WaboAppsflyerAttribute")
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
 
-@class NSString;
 @class WaboAttrInfoBuilder;
 
 SWIFT_CLASS("_TtC7WaboSDK12WaboAttrInfo")
@@ -320,6 +330,12 @@ SWIFT_CLASS("_TtC7WaboSDK20WaboCheckLoginResult")
 
 SWIFT_CLASS("_TtC7WaboSDK16WaboCollectLogin")
 @interface WaboCollectLogin : NSObject
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+@end
+
+
+SWIFT_CLASS("_TtC7WaboSDK16WaboCollectShare")
+@interface WaboCollectShare : NSObject
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
 
@@ -413,6 +429,7 @@ SWIFT_CLASS("_TtC7WaboSDK7WaboSDK")
 @interface WaboSDK : NSObject
 + (WaboSDK * _Nonnull)sharedInstance SWIFT_WARN_UNUSED_RESULT;
 - (BOOL)isSDKInited SWIFT_WARN_UNUSED_RESULT;
+- (NSString * _Nullable)getStaticInfoOfString SWIFT_WARN_UNUSED_RESULT;
 - (void)sdkInit:(id <WaboSDKDelegate> _Nonnull)delegate;
 - (void)sdkInitWithDict:(NSDictionary<NSString *, id> * _Nonnull)configDict delegate:(id <WaboSDKDelegate> _Nonnull)delegate;
 - (void)sdkInitWithJson:(NSString * _Nonnull)configJson delegate:(id <WaboSDKDelegate> _Nonnull)delegate;
@@ -428,6 +445,7 @@ SWIFT_CLASS("_TtC7WaboSDK7WaboSDK")
 - (void)onWaboAnalysisInitDelegate:(id _Nullable)any;
 - (void)onWaboLoginInitDelegate:(id _Nullable)any;
 - (void)onWaboPurchaseInitDelegate:(id _Nullable)any;
+- (void)onWaboShareInitDelegate:(id _Nullable)any;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
 
@@ -450,6 +468,21 @@ SWIFT_CLASS("_TtC7WaboSDK7WaboSDK")
 - (NSString * _Nullable)getAttrId SWIFT_WARN_UNUSED_RESULT;
 @end
 
+
+@interface WaboSDK (SWIFT_EXTENSION(WaboSDK))
+- (void)onLog:(NSString * _Nonnull)eventName paramMap:(NSDictionary<NSString *, id> * _Nonnull)paramMap;
+- (void)onLogWithJson:(NSString * _Nonnull)jsonString;
+@end
+
+@class WaboStatusCode;
+@class UIImage;
+
+@interface WaboSDK (SWIFT_EXTENSION(WaboSDK))
+- (NSArray<NSString *> * _Nonnull)getShareTypes SWIFT_WARN_UNUSED_RESULT;
+- (void)shareLink:(NSString * _Nonnull)shareType url:(NSString * _Nonnull)url success:(void (^ _Nonnull)(NSString * _Nonnull))success failed:(void (^ _Nonnull)(WaboStatusCode * _Nonnull))failed;
+- (void)sharePhoto:(NSString * _Nonnull)shareType image:(UIImage * _Nonnull)image success:(void (^ _Nonnull)(NSString * _Nonnull))success failed:(void (^ _Nonnull)(WaboStatusCode * _Nonnull))failed;
+@end
+
 @class UIApplication;
 @class NSURL;
 @class UIScene;
@@ -462,17 +495,19 @@ SWIFT_CLASS("_TtC7WaboSDK7WaboSDK")
 @end
 
 
-@class WaboStatusCode;
 @class WaboUserInfoResult;
 
 @interface WaboSDK (SWIFT_EXTENSION(WaboSDK))
+@property (nonatomic, readonly) BOOL isLogin;
+@property (nonatomic, readonly) int64_t gameAccountId;
+@property (nonatomic, readonly, copy) NSString * _Nullable sessionToken;
 - (NSArray<NSString *> * _Nonnull)getLoginTypes SWIFT_WARN_UNUSED_RESULT;
-- (void)autoLoginAsyncWithNeedGameCenter:(BOOL)needGameCenter success:(void (^ _Nonnull)(WaboAutoLoginResult * _Nonnull))success failed:(void (^ _Nonnull)(WaboStatusCode * _Nonnull))failed;
-- (void)checkLoginAsyncWithSuccess:(void (^ _Nonnull)(WaboCheckLoginResult * _Nonnull))success failed:(void (^ _Nonnull)(WaboStatusCode * _Nonnull))failed;
-- (void)loginWithTypeAsyncWithLoginType:(NSString * _Nonnull)loginType success:(void (^ _Nonnull)(WaboLoginResult * _Nonnull))success failed:(void (^ _Nonnull)(WaboStatusCode * _Nonnull))failed;
-- (void)bindWithTypeAsyncWithLoginType:(NSString * _Nonnull)loginType success:(void (^ _Nonnull)(WaboUserInfoResult * _Nonnull))success failed:(void (^ _Nonnull)(WaboStatusCode * _Nonnull))failed;
-- (void)unbindWithTypeAsyncWithLoginType:(NSString * _Nonnull)loginType success:(void (^ _Nonnull)(WaboUserInfoResult * _Nonnull))success failed:(void (^ _Nonnull)(WaboStatusCode * _Nonnull))failed;
-- (void)getUserInfoAsyncWithSuccess:(void (^ _Nonnull)(WaboUserInfoResult * _Nonnull))success failed:(void (^ _Nonnull)(WaboStatusCode * _Nonnull))failed;
+- (void)autoLoginAsync:(BOOL)needGameCenter success:(void (^ _Nonnull)(WaboAutoLoginResult * _Nonnull))success failed:(void (^ _Nonnull)(WaboStatusCode * _Nonnull))failed;
+- (void)checkLoginAsync:(void (^ _Nonnull)(WaboCheckLoginResult * _Nonnull))success failed:(void (^ _Nonnull)(WaboStatusCode * _Nonnull))failed;
+- (void)loginWithTypeAsync:(NSString * _Nonnull)loginType success:(void (^ _Nonnull)(WaboLoginResult * _Nonnull))success failed:(void (^ _Nonnull)(WaboStatusCode * _Nonnull))failed;
+- (void)bindWithTypeAsync:(NSString * _Nonnull)loginType success:(void (^ _Nonnull)(WaboUserInfoResult * _Nonnull))success failed:(void (^ _Nonnull)(WaboStatusCode * _Nonnull))failed;
+- (void)unbindWithTypeAsync:(NSString * _Nonnull)loginType success:(void (^ _Nonnull)(WaboUserInfoResult * _Nonnull))success failed:(void (^ _Nonnull)(WaboStatusCode * _Nonnull))failed;
+- (void)getUserInfoAsync:(void (^ _Nonnull)(WaboUserInfoResult * _Nonnull))success failed:(void (^ _Nonnull)(WaboStatusCode * _Nonnull))failed;
 - (void)logout;
 @end
 
@@ -482,6 +517,7 @@ SWIFT_CLASS("_TtC7WaboSDK7WaboSDK")
 @protocol WaboSDKBannerAdDelegate;
 
 @interface WaboSDK (SWIFT_EXTENSION(WaboSDK))
+- (NSString * _Nonnull)getLoadingStatusSummary SWIFT_WARN_UNUSED_RESULT;
 - (BOOL)isRewardedAdReady:(NSString * _Nullable)placementId SWIFT_WARN_UNUSED_RESULT;
 - (void)showRewardedAd:(NSString * _Nullable)placementId;
 - (BOOL)isInterstitialAdReady:(NSString * _Nullable)placementId SWIFT_WARN_UNUSED_RESULT;
@@ -505,25 +541,29 @@ SWIFT_CLASS("_TtC7WaboSDK7WaboSDK")
 - (NSArray<WaboShopItem *> * _Nullable)getShopItems SWIFT_WARN_UNUSED_RESULT;
 - (void)startPaymentWithEnvId:(NSString * _Nonnull)item cpOrderId:(NSString * _Nullable)cpOrderId envId:(NSString * _Nonnull)envId success:(void (^ _Nonnull)(WaboPaymentResult * _Nonnull))success failed:(void (^ _Nonnull)(WaboStatusCode * _Nonnull))failed;
 - (void)startPayment:(NSString * _Nonnull)itemId cpOrderId:(NSString * _Nullable)cpOrderId success:(void (^ _Nonnull)(WaboPaymentResult * _Nonnull))success failed:(void (^ _Nonnull)(WaboStatusCode * _Nonnull))failed;
-- (void)onConsumeItemWithGameOrderId:(int64_t)gameOrderId success:(void (^ _Nonnull)(int64_t))success failed:(void (^ _Nonnull)(WaboStatusCode * _Nonnull))failed;
-- (void)queryOneTimeItemAsyncWithSuccess:(void (^ _Nonnull)(NSArray<WaboOneTimeItem *> * _Nonnull))success failed:(void (^ _Nonnull)(WaboStatusCode * _Nonnull))failed;
-- (void)querySubscriptionAsyncWithSuccess:(void (^ _Nonnull)(NSArray<WaboSubscriptionItem *> * _Nonnull))success failed:(void (^ _Nonnull)(WaboStatusCode * _Nonnull))failed;
+- (void)onConsumeItem:(int64_t)gameOrderId success:(void (^ _Nonnull)(int64_t))success failed:(void (^ _Nonnull)(WaboStatusCode * _Nonnull))failed;
+- (void)queryOneTimeItemAsync:(void (^ _Nonnull)(NSArray<WaboOneTimeItem *> * _Nonnull))success failed:(void (^ _Nonnull)(WaboStatusCode * _Nonnull))failed;
+- (void)querySubscriptionAsync:(void (^ _Nonnull)(NSArray<WaboSubscriptionItem *> * _Nonnull))success failed:(void (^ _Nonnull)(WaboStatusCode * _Nonnull))failed;
 - (void)onRestoreApplePurchases;
 @end
 
 
 SWIFT_PROTOCOL("_TtP7WaboSDK24WaboSDKAppopenAdDelegate_")
 @protocol WaboSDKAppopenAdDelegate <NSObject>
-- (void)onWaboAppopenAdDidDisplay:(NSString * _Nonnull)adUnitId;
-- (void)onWaboAppopenAdDidHide:(NSString * _Nonnull)adUnitId;
+- (void)onWaboAppopenAdDidDisplay:(NSString * _Nonnull)adUnitId callback:(WaboAdCallbackInfo * _Nonnull)callbackInfo;
+- (void)onWaboAppopenAdDidHide:(NSString * _Nonnull)adUnitId callback:(WaboAdCallbackInfo * _Nonnull)callbackInfo;
+- (void)onWaboAppopenAdDidClick:(NSString * _Nonnull)adUnitId callback:(WaboAdCallbackInfo * _Nonnull)callbackInfo;
+- (void)onWaboAppopenAdDidFailToDisplay:(NSString * _Nonnull)adUnitId code:(NSInteger)code errMsg:(NSString * _Nonnull)errMsg;
 - (void)onWaboAppopenAdDiaTimeout:(NSString * _Nonnull)adUnitId;
 @end
 
 
 SWIFT_PROTOCOL("_TtP7WaboSDK23WaboSDKBannerAdDelegate_")
 @protocol WaboSDKBannerAdDelegate <NSObject>
-- (void)onWaboBannerAdDidDisplay:(NSString * _Nonnull)adUnitId;
-- (void)onWaboBannerAdDidHide:(NSString * _Nonnull)adUnitId;
+- (void)onWaboBannerAdDidDisplay:(NSString * _Nonnull)adUnitId callback:(WaboAdCallbackInfo * _Nonnull)callbackInfo;
+- (void)onWaboBannerAdDidHide:(NSString * _Nonnull)adUnitId callback:(WaboAdCallbackInfo * _Nonnull)callbackInfo;
+- (void)onWaboBannerAdDidExpand:(NSString * _Nonnull)adUnitId callback:(WaboAdCallbackInfo * _Nonnull)callbackInfo;
+- (void)onWaboBannerAdDidClick:(NSString * _Nonnull)adUnitId callback:(WaboAdCallbackInfo * _Nonnull)callbackInfo;
 @end
 
 
@@ -548,16 +588,19 @@ SWIFT_PROTOCOL("_TtP7WaboSDK15WaboSDKDelegate_")
 
 SWIFT_PROTOCOL("_TtP7WaboSDK29WaboSDKInterstitialAdDelegate_")
 @protocol WaboSDKInterstitialAdDelegate <NSObject>
-- (void)onWaboInterstitialAdDidDisplay:(NSString * _Nonnull)adUnitId;
-- (void)onWaboInterstitialAdDidHide:(NSString * _Nonnull)adUnitId;
+- (void)onWaboInterstitialAdDidDisplay:(NSString * _Nonnull)adUnitId callback:(WaboAdCallbackInfo * _Nonnull)callbackInfo;
+- (void)onWaboInterstitialAdDidHide:(NSString * _Nonnull)adUnitId callback:(WaboAdCallbackInfo * _Nonnull)callbackInfo;
+- (void)onWaboInterstitialAdDidClick:(NSString * _Nonnull)adUnitId callback:(WaboAdCallbackInfo * _Nonnull)callbackInfo;
 @end
 
 
 SWIFT_PROTOCOL("_TtP7WaboSDK23WaboSDKRewardAdDelegate_")
 @protocol WaboSDKRewardAdDelegate <NSObject>
-- (void)onWaboRewardAdDidRewardUser:(NSString * _Nonnull)adUnitId :(NSInteger)amount;
-- (void)onWaboRewardAdDidDisplay:(NSString * _Nonnull)adUnitId;
-- (void)onWaboRewardAdDidHide:(NSString * _Nonnull)adUnitId;
+- (void)onWaboRewardAdDidRewardUser:(NSString * _Nonnull)adUnitId callback:(WaboAdCallbackInfo * _Nonnull)callbackInfo;
+- (void)onWaboRewardAdDidDisplay:(NSString * _Nonnull)adUnitId callback:(WaboAdCallbackInfo * _Nonnull)callbackInfo;
+- (void)onWaboRewardAdDidHide:(NSString * _Nonnull)adUnitId callback:(WaboAdCallbackInfo * _Nonnull)callbackInfo;
+- (void)onWaboRewardAdDidClick:(NSString * _Nonnull)adUnitId callback:(WaboAdCallbackInfo * _Nonnull)callbackInfo;
+- (void)onWaboRewardAdDidFailToDisplay:(NSString * _Nonnull)adUnitId code:(NSInteger)code errMsg:(NSString * _Nonnull)errMsg;
 @end
 
 
