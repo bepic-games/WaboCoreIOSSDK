@@ -1,0 +1,11 @@
+framework module WaboShare {
+  umbrella header "WaboShare.h"
+
+  export *
+  module * { export * }
+}
+
+module WaboShare.Swift {
+  header "WaboShare-Swift.h"
+  requires objc
+}
