@@ -1,0 +1,11 @@
+framework module WaboBugly {
+  umbrella header "WaboBugly.h"
+
+  export *
+  module * { export * }
+}
+
+module WaboBugly.Swift {
+  header "WaboBugly-Swift.h"
+  requires objc
+}
