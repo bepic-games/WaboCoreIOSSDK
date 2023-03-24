@@ -611,6 +611,9 @@ SWIFT_CLASS("_TtC7WaboSDK12WaboShopItem")
 @property (nonatomic, copy) NSString * _Nullable appleStoreId;
 @property (nonatomic, copy) NSString * _Nullable usdPrice;
 @property (nonatomic, copy) NSString * _Nullable formattedPrice;
+@property (nonatomic, readonly, copy) NSString * _Nullable itemType;
+@property (nonatomic, readonly, copy) NSString * _Nullable currency;
+@property (nonatomic, readonly, copy) NSString * _Nullable price;
 @property (nonatomic, readonly) BOOL isConsume;
 @property (nonatomic, readonly) BOOL isOneTime;
 @property (nonatomic, readonly) BOOL isSubscription;
