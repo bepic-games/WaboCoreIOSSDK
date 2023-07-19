@@ -446,6 +446,9 @@ SWIFT_CLASS("_TtC7WaboSDK17WaboPaymentResult")
 @interface WaboPaymentResult : NSObject
 @property (nonatomic, copy) NSString * _Nullable itemId;
 @property (nonatomic) int64_t gameOrderId;
+@property (nonatomic) int64_t createTime;
+@property (nonatomic) int64_t purchaseTime;
+@property (nonatomic) NSInteger status;
 @property (nonatomic) NSInteger type;
 @property (nonatomic, readonly) BOOL isConsume;
 @property (nonatomic, readonly) BOOL isOneTime;
