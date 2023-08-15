@@ -373,6 +373,7 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) WaboStatusCo
 - (NSString * _Nonnull)getMsg SWIFT_WARN_UNUSED_RESULT;
 - (void)setMsg:(NSString * _Nonnull)msg;
 - (WaboStatusCode * _Nonnull)withMsg:(NSString * _Nonnull)msg SWIFT_WARN_UNUSED_RESULT;
+- (NSString * _Nonnull)toJson SWIFT_WARN_UNUSED_RESULT;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
 
