@@ -573,6 +573,7 @@ SWIFT_CLASS("_TtC7WaboSDK7WaboSDK")
 @class WaboSubscriptionItem;
 
 @interface WaboSDK (SWIFT_EXTENSION(WaboSDK))
+- (void)setWaboTransactionStatusDelegate:(void (^ _Nonnull)(WaboStatusCode * _Nonnull))delegate;
 - (NSArray<WaboShopItem *> * _Nullable)getShopItems SWIFT_WARN_UNUSED_RESULT;
 - (void)startPaymentWithEnvId:(NSString * _Nonnull)item cpOrderId:(NSString * _Nullable)cpOrderId envId:(NSString * _Nonnull)envId success:(void (^ _Nonnull)(WaboPaymentResult * _Nonnull))success failed:(void (^ _Nonnull)(WaboStatusCode * _Nonnull))failed;
 - (void)startPayment:(NSString * _Nonnull)itemId cpOrderId:(NSString * _Nullable)cpOrderId success:(void (^ _Nonnull)(WaboPaymentResult * _Nonnull))success failed:(void (^ _Nonnull)(WaboStatusCode * _Nonnull))failed;
