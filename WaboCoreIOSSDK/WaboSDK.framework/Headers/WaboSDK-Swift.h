@@ -501,15 +501,6 @@ SWIFT_CLASS("_TtC7WaboSDK7WaboSDK")
 - (NSString * _Nullable)getAttrId SWIFT_WARN_UNUSED_RESULT;
 @end
 
-@class WaboStatusCode;
-@class UIImage;
-
-@interface WaboSDK (SWIFT_EXTENSION(WaboSDK))
-- (NSArray<NSString *> * _Nonnull)getShareTypes SWIFT_WARN_UNUSED_RESULT;
-- (void)shareLink:(NSString * _Nonnull)shareType url:(NSString * _Nonnull)url success:(void (^ _Nonnull)(NSString * _Nonnull))success failed:(void (^ _Nonnull)(WaboStatusCode * _Nonnull))failed;
-- (void)sharePhoto:(NSString * _Nonnull)shareType image:(UIImage * _Nonnull)image success:(void (^ _Nonnull)(NSString * _Nonnull))success failed:(void (^ _Nonnull)(WaboStatusCode * _Nonnull))failed;
-@end
-
 @class UIApplication;
 @class NSURL;
 @class UIScene;
@@ -521,11 +512,21 @@ SWIFT_CLASS("_TtC7WaboSDK7WaboSDK")
 - (void)scene:(UIScene * _Nonnull)scene openURLContexts:(NSSet<UIOpenURLContext *> * _Nonnull)URLContexts SWIFT_AVAILABILITY(ios,introduced=13.0);
 @end
 
+@class WaboStatusCode;
+@class UIImage;
+
+@interface WaboSDK (SWIFT_EXTENSION(WaboSDK))
+- (NSArray<NSString *> * _Nonnull)getShareTypes SWIFT_WARN_UNUSED_RESULT;
+- (void)shareLink:(NSString * _Nonnull)shareType url:(NSString * _Nonnull)url success:(void (^ _Nonnull)(NSString * _Nonnull))success failed:(void (^ _Nonnull)(WaboStatusCode * _Nonnull))failed;
+- (void)sharePhoto:(NSString * _Nonnull)shareType image:(UIImage * _Nonnull)image success:(void (^ _Nonnull)(NSString * _Nonnull))success failed:(void (^ _Nonnull)(WaboStatusCode * _Nonnull))failed;
+@end
+
 @class NSDate;
 
 @interface WaboSDK (SWIFT_EXTENSION(WaboSDK))
 - (void)onLog:(NSString * _Nonnull)eventName paramMap:(NSDictionary<NSString *, id> * _Nonnull)paramMap;
 - (void)onLogPaySuccess:(NSString * _Nonnull)store transactionId:(NSString * _Nonnull)transactionId productId:(NSString * _Nonnull)productId purchaseDate:(NSDate * _Nonnull)purchaseDate price:(double)price priceString:(NSString * _Nonnull)priceString currency:(NSString * _Nonnull)currency;
+- (void)onUploadIntoGame:(NSString * _Nullable)server_id server_name:(NSString * _Nullable)server_name role_id:(NSString * _Nullable)role_id role_name:(NSString * _Nullable)role_name;
 - (void)onLogWithJson:(NSString * _Nonnull)jsonString;
 @end
 
@@ -575,6 +576,7 @@ SWIFT_CLASS("_TtC7WaboSDK7WaboSDK")
 @interface WaboSDK (SWIFT_EXTENSION(WaboSDK))
 - (void)setWaboTransactionStatusDelegate:(void (^ _Nonnull)(WaboStatusCode * _Nonnull))delegate;
 - (NSArray<WaboShopItem *> * _Nullable)getShopItems SWIFT_WARN_UNUSED_RESULT;
+- (void)getShopItemsAsyncWithSuccecc:(void (^ _Nonnull)(NSArray<WaboShopItem *> * _Nonnull))succecc failed:(void (^ _Nonnull)(WaboStatusCode * _Nonnull))failed;
 - (void)startPaymentWithEnvId:(NSString * _Nonnull)item cpOrderId:(NSString * _Nullable)cpOrderId envId:(NSString * _Nonnull)envId success:(void (^ _Nonnull)(WaboPaymentResult * _Nonnull))success failed:(void (^ _Nonnull)(WaboStatusCode * _Nonnull))failed;
 - (void)startPayment:(NSString * _Nonnull)itemId cpOrderId:(NSString * _Nullable)cpOrderId success:(void (^ _Nonnull)(WaboPaymentResult * _Nonnull))success failed:(void (^ _Nonnull)(WaboStatusCode * _Nonnull))failed;
 - (void)onConsumeItem:(int64_t)gameOrderId success:(void (^ _Nonnull)(int64_t))success failed:(void (^ _Nonnull)(WaboStatusCode * _Nonnull))failed;
@@ -648,7 +650,7 @@ SWIFT_CLASS("_TtC7WaboSDK12WaboShopItem")
 @property (nonatomic, copy) NSString * _Nullable usdPrice;
 @property (nonatomic, copy) NSString * _Nullable formattedPrice;
 @property (nonatomic, readonly, copy) NSString * _Nullable itemType;
-@property (nonatomic, readonly, copy) NSString * _Nullable currency;
+@property (nonatomic, copy) NSString * _Nullable currency;
 @property (nonatomic, readonly, copy) NSString * _Nullable price;
 @property (nonatomic, readonly) BOOL isConsume;
 @property (nonatomic, readonly) BOOL isOneTime;
