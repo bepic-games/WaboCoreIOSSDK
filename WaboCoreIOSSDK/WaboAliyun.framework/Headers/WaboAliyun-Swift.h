@@ -289,7 +289,7 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 SWIFT_CLASS("_TtC10WaboAliyun10WaboAliyun")
 @interface WaboAliyun : NSObject
 + (WaboAliyun * _Nonnull)sharedInstance SWIFT_WARN_UNUSED_RESULT;
-- (BOOL)isInited SWIFT_WARN_UNUSED_RESULT;
+- (BOOL)hasInit SWIFT_WARN_UNUSED_RESULT;
 /// bridge version
 ///
 /// returns:
@@ -302,6 +302,7 @@ SWIFT_CLASS("_TtC10WaboAliyun10WaboAliyun")
 - (WaboBridgeResult * _Nonnull)sdkVersion SWIFT_WARN_UNUSED_RESULT;
 - (void)onInitWithJson:(NSString * _Nonnull)configJson :(WaboStaticInfo * _Nonnull)staticInfo;
 - (void)setAttrId:(NSString * _Nonnull)attrid;
+- (void)setClientIp:(NSString * _Nonnull)clientIp;
 - (void)log:(NSString * _Nonnull)eventName :(NSDictionary<NSString *, id> * _Nonnull)params;
 - (void)setWaboAliyunInitDelegate:(void (^ _Nonnull)(id _Nullable))delegate;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;

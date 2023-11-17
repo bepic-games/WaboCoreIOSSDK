@@ -344,6 +344,14 @@ SWIFT_CLASS("_TtC7WaboSDK19WaboAutoLoginResult")
 @end
 
 
+SWIFT_CLASS("_TtC7WaboSDK26WaboBindTransferCodeResult")
+@interface WaboBindTransferCodeResult : NSObject
+@property (nonatomic, copy) NSString * _Nullable gameId;
+@property (nonatomic) int64_t gameAccountId;
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+@end
+
+
 SWIFT_CLASS("_TtC7WaboSDK21WaboBuglyCrashMonitor")
 @interface WaboBuglyCrashMonitor : NSObject
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
@@ -388,6 +396,21 @@ SWIFT_CLASS("_TtC7WaboSDK20WaboFirebaseAnalysis")
 - (void)initCheckout:(double)price :(NSString * _Nonnull)currency :(NSString * _Nonnull)contentId SWIFT_METHOD_FAMILY(none);
 - (void)purchase:(double)price :(NSString * _Nonnull)currency :(NSString * _Nonnull)contentId;
 - (void)incRevenue:(double)price;
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+@end
+
+
+SWIFT_CLASS("_TtC7WaboSDK30WaboGenerateTransferCodeResult")
+@interface WaboGenerateTransferCodeResult : NSObject
+@property (nonatomic, copy) NSString * _Nullable transferCode;
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+@end
+
+
+SWIFT_CLASS("_TtC7WaboSDK29WaboGetBindTransferCodeResult")
+@interface WaboGetBindTransferCodeResult : NSObject
+@property (nonatomic, copy) NSString * _Nullable gameId;
+@property (nonatomic) int64_t gameAccountId;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
 
@@ -461,7 +484,7 @@ SWIFT_CLASS("_TtC7WaboSDK17WaboPaymentResult")
 SWIFT_CLASS("_TtC7WaboSDK7WaboSDK")
 @interface WaboSDK : NSObject
 + (WaboSDK * _Nonnull)sharedInstance SWIFT_WARN_UNUSED_RESULT;
-- (BOOL)isSDKInited SWIFT_WARN_UNUSED_RESULT;
+- (BOOL)hasInit SWIFT_WARN_UNUSED_RESULT;
 - (NSString * _Nullable)getStaticInfoOfString SWIFT_WARN_UNUSED_RESULT;
 - (void)sdkInit:(id <WaboSDKDelegate> _Nonnull)delegate;
 - (void)sdkInitWithDict:(NSDictionary<NSString *, id> * _Nonnull)configDict delegate:(id <WaboSDKDelegate> _Nonnull)delegate;
@@ -486,6 +509,7 @@ SWIFT_CLASS("_TtC7WaboSDK7WaboSDK")
 @interface WaboSDK (SWIFT_EXTENSION(WaboSDK))
 - (void)onMessaging:(NSString * _Nonnull)token;
 @end
+
 
 
 @interface WaboSDK (SWIFT_EXTENSION(WaboSDK))
@@ -531,22 +555,6 @@ SWIFT_CLASS("_TtC7WaboSDK7WaboSDK")
 @end
 
 
-@class WaboUserInfoResult;
-
-@interface WaboSDK (SWIFT_EXTENSION(WaboSDK))
-@property (nonatomic, readonly) BOOL isLogin;
-@property (nonatomic, readonly) int64_t gameAccountId;
-@property (nonatomic, readonly, copy) NSString * _Nullable sessionToken;
-- (NSArray<NSString *> * _Nonnull)getLoginTypes SWIFT_WARN_UNUSED_RESULT;
-- (void)autoLoginAsync:(BOOL)needGameCenter success:(void (^ _Nonnull)(WaboAutoLoginResult * _Nonnull))success failed:(void (^ _Nonnull)(WaboStatusCode * _Nonnull))failed;
-- (void)checkLoginAsync:(void (^ _Nonnull)(WaboCheckLoginResult * _Nonnull))success failed:(void (^ _Nonnull)(WaboStatusCode * _Nonnull))failed;
-- (void)loginWithTypeAsync:(NSString * _Nonnull)loginType success:(void (^ _Nonnull)(WaboLoginResult * _Nonnull))success failed:(void (^ _Nonnull)(WaboStatusCode * _Nonnull))failed;
-- (void)bindWithTypeAsync:(NSString * _Nonnull)loginType success:(void (^ _Nonnull)(WaboUserInfoResult * _Nonnull))success failed:(void (^ _Nonnull)(WaboStatusCode * _Nonnull))failed;
-- (void)unbindWithTypeAsync:(NSString * _Nonnull)loginType success:(void (^ _Nonnull)(WaboUserInfoResult * _Nonnull))success failed:(void (^ _Nonnull)(WaboStatusCode * _Nonnull))failed;
-- (void)getUserInfoAsync:(void (^ _Nonnull)(WaboUserInfoResult * _Nonnull))success failed:(void (^ _Nonnull)(WaboStatusCode * _Nonnull))failed;
-- (void)logout;
-@end
-
 @protocol WaboSDKAppopenAdDelegate;
 @protocol WaboSDKRewardAdDelegate;
 @protocol WaboSDKInterstitialAdDelegate;
@@ -568,6 +576,25 @@ SWIFT_CLASS("_TtC7WaboSDK7WaboSDK")
 - (void)setWaboRewardAdDelegate:(id <WaboSDKRewardAdDelegate> _Nonnull)delegate;
 - (void)setWaboInterstitialAdDelegate:(id <WaboSDKInterstitialAdDelegate> _Nonnull)delegate;
 - (void)setWaboBannerAdDelegate:(id <WaboSDKBannerAdDelegate> _Nonnull)delegate;
+@end
+
+@class WaboUserInfoResult;
+
+@interface WaboSDK (SWIFT_EXTENSION(WaboSDK))
+@property (nonatomic, readonly) BOOL isLogin;
+@property (nonatomic, readonly) int64_t gameAccountId;
+@property (nonatomic, readonly, copy) NSString * _Nullable sessionToken;
+- (NSArray<NSString *> * _Nonnull)getLoginTypes SWIFT_WARN_UNUSED_RESULT;
+- (void)autoLoginAsync:(BOOL)needGameCenter success:(void (^ _Nonnull)(WaboAutoLoginResult * _Nonnull))success failed:(void (^ _Nonnull)(WaboStatusCode * _Nonnull))failed;
+- (void)checkLoginAsync:(void (^ _Nonnull)(WaboCheckLoginResult * _Nonnull))success failed:(void (^ _Nonnull)(WaboStatusCode * _Nonnull))failed;
+- (void)loginWithTypeAsync:(NSString * _Nonnull)loginType success:(void (^ _Nonnull)(WaboLoginResult * _Nonnull))success failed:(void (^ _Nonnull)(WaboStatusCode * _Nonnull))failed;
+- (void)bindWithTypeAsync:(NSString * _Nonnull)loginType success:(void (^ _Nonnull)(WaboUserInfoResult * _Nonnull))success failed:(void (^ _Nonnull)(WaboStatusCode * _Nonnull))failed;
+- (void)unbindWithTypeAsync:(NSString * _Nonnull)loginType success:(void (^ _Nonnull)(WaboUserInfoResult * _Nonnull))success failed:(void (^ _Nonnull)(WaboStatusCode * _Nonnull))failed;
+- (void)getUserInfoAsync:(void (^ _Nonnull)(WaboUserInfoResult * _Nonnull))success failed:(void (^ _Nonnull)(WaboStatusCode * _Nonnull))failed;
+- (void)logout;
+- (void)getBindTransferCode:(void (^ _Nonnull)(WaboGetBindTransferCodeResult * _Nullable))success failed:(void (^ _Nonnull)(WaboStatusCode * _Nonnull))failed;
+- (void)generateTransferCode:(void (^ _Nonnull)(WaboGenerateTransferCodeResult * _Nonnull))success failed:(void (^ _Nonnull)(WaboStatusCode * _Nonnull))failed;
+- (void)bindTransferCode:(NSString * _Nonnull)transferCode success:(void (^ _Nonnull)(WaboBindTransferCodeResult * _Nonnull))success failed:(void (^ _Nonnull)(WaboStatusCode * _Nonnull))failed;
 @end
 
 @class WaboShopItem;

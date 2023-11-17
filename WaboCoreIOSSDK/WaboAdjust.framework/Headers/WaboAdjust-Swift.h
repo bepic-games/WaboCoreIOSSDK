@@ -295,7 +295,7 @@ SWIFT_CLASS("_TtC10WaboAdjust10WaboAdjust")
 ///
 /// returns:
 /// is init complete
-- (BOOL)isInited SWIFT_WARN_UNUSED_RESULT;
+- (BOOL)hasInit SWIFT_WARN_UNUSED_RESULT;
 /// bridge version
 ///
 /// returns:
