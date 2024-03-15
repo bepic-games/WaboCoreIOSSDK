@@ -1,0 +1,11 @@
+framework module WaboGoogleUMP {
+  umbrella header "WaboGoogleUMP.h"
+
+  export *
+  module * { export * }
+}
+
+module WaboGoogleUMP.Swift {
+  header "WaboGoogleUMP-Swift.h"
+  requires objc
+}
