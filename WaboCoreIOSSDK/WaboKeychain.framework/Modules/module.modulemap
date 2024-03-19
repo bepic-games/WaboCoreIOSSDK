@@ -1,0 +1,6 @@
+framework module WaboKeychain {
+  umbrella header "WaboKeychain.h"
+
+  export *
+  module * { export * }
+}
