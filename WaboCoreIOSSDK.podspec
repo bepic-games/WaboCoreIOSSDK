@@ -1,6 +1,6 @@
 Pod::Spec.new do |spec|
   spec.name = "WaboCoreIOSSDK"
-  spec.version="0.1.13"
+  spec.version="0.1.14"
   spec.summary = "Wabo SDK core sdk"
   spec.description= <<-DESC
   Wabo SDK for core

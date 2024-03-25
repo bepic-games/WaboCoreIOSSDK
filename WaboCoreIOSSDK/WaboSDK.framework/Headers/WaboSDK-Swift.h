@@ -568,6 +568,7 @@ SWIFT_CLASS("_TtC7WaboSDK7WaboSDK")
 - (void)onLogWithJson:(NSString * _Nonnull)jsonString;
 @end
 
+
 enum WaboUMPDebugGeography : NSInteger;
 
 @interface WaboSDK (SWIFT_EXTENSION(WaboSDK))
@@ -577,7 +578,6 @@ enum WaboUMPDebugGeography : NSInteger;
 - (void)setDebugGeography:(enum WaboUMPDebugGeography)debugGeography;
 - (void)addTestDeviceHashedId:(NSString * _Nonnull)deviceHashedId;
 @end
-
 
 @protocol WaboSDKAppopenAdDelegate;
 @protocol WaboSDKRewardAdDelegate;
@@ -603,6 +603,7 @@ enum WaboUMPDebugGeography : NSInteger;
 @end
 
 @class WaboUserInfoResult;
+@class WaboSignOutResult;
 
 @interface WaboSDK (SWIFT_EXTENSION(WaboSDK))
 @property (nonatomic, readonly) BOOL isLogin;
@@ -616,6 +617,7 @@ enum WaboUMPDebugGeography : NSInteger;
 - (void)unbindWithTypeAsync:(NSString * _Nonnull)loginType success:(void (^ _Nonnull)(WaboUserInfoResult * _Nonnull))success failed:(void (^ _Nonnull)(WaboStatusCode * _Nonnull))failed;
 - (void)getUserInfoAsync:(void (^ _Nonnull)(WaboUserInfoResult * _Nonnull))success failed:(void (^ _Nonnull)(WaboStatusCode * _Nonnull))failed;
 - (void)logout;
+- (void)signOut:(void (^ _Nonnull)(WaboSignOutResult * _Nonnull))success failed:(void (^ _Nonnull)(WaboStatusCode * _Nonnull))failed;
 - (void)getBindTransferCode:(void (^ _Nonnull)(WaboGetBindTransferCodeResult * _Nullable))success failed:(void (^ _Nonnull)(WaboStatusCode * _Nonnull))failed;
 - (void)generateTransferCode:(void (^ _Nonnull)(WaboGenerateTransferCodeResult * _Nonnull))success failed:(void (^ _Nonnull)(WaboStatusCode * _Nonnull))failed;
 - (void)bindTransferCode:(NSString * _Nonnull)transferCode success:(void (^ _Nonnull)(WaboBindTransferCodeResult * _Nonnull))success failed:(void (^ _Nonnull)(WaboStatusCode * _Nonnull))failed;
@@ -708,6 +710,14 @@ SWIFT_CLASS("_TtC7WaboSDK12WaboShopItem")
 @property (nonatomic, readonly) BOOL isConsume;
 @property (nonatomic, readonly) BOOL isOneTime;
 @property (nonatomic, readonly) BOOL isSubscription;
+@end
+
+
+SWIFT_CLASS("_TtC7WaboSDK17WaboSignOutResult")
+@interface WaboSignOutResult : NSObject
+@property (nonatomic) NSInteger code;
+@property (nonatomic, copy) NSString * _Nullable msg;
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
 
 
