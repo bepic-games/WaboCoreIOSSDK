@@ -520,11 +520,6 @@ SWIFT_CLASS("_TtC7WaboSDK7WaboSDK")
 @end
 
 
-@interface WaboSDK (SWIFT_EXTENSION(WaboSDK))
-- (void)onMessaging:(NSString * _Nonnull)token;
-@end
-
-
 
 @interface WaboSDK (SWIFT_EXTENSION(WaboSDK))
 /// get attr info
@@ -546,6 +541,13 @@ SWIFT_CLASS("_TtC7WaboSDK7WaboSDK")
 - (NSArray<NSString *> * _Nonnull)getShareTypes SWIFT_WARN_UNUSED_RESULT;
 - (void)shareLink:(NSString * _Nonnull)shareType url:(NSString * _Nonnull)url success:(void (^ _Nonnull)(NSString * _Nonnull))success failed:(void (^ _Nonnull)(WaboStatusCode * _Nonnull))failed;
 - (void)sharePhoto:(NSString * _Nonnull)shareType image:(UIImage * _Nonnull)image success:(void (^ _Nonnull)(NSString * _Nonnull))success failed:(void (^ _Nonnull)(WaboStatusCode * _Nonnull))failed;
+@end
+
+
+@interface WaboSDK (SWIFT_EXTENSION(WaboSDK))
+- (void)onMessaging:(NSString * _Nonnull)token;
+- (void)enableRemoteNotifications;
+- (void)disableRemoteNotifications;
 @end
 
 @class UIApplication;
@@ -606,6 +608,7 @@ enum WaboUMPDebugGeography : NSInteger;
 @class WaboSignOutResult;
 
 @interface WaboSDK (SWIFT_EXTENSION(WaboSDK))
+@property (nonatomic, readonly, copy) NSString * _Nullable gameId;
 @property (nonatomic, readonly) BOOL isLogin;
 @property (nonatomic, readonly) int64_t gameAccountId;
 @property (nonatomic, readonly, copy) NSString * _Nullable sessionToken;

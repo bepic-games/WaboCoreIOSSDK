@@ -337,6 +337,8 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) WaboStatusCo
 + (WaboStatusCode * _Nonnull)Success SWIFT_WARN_UNUSED_RESULT;
 SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) WaboStatusCode * _Nonnull Failed;)
 + (WaboStatusCode * _Nonnull)Failed SWIFT_WARN_UNUSED_RESULT;
+SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) WaboStatusCode * _Nonnull ErrorPrecondition;)
++ (WaboStatusCode * _Nonnull)ErrorPrecondition SWIFT_WARN_UNUSED_RESULT;
 SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) WaboStatusCode * _Nonnull ErrorParameter;)
 + (WaboStatusCode * _Nonnull)ErrorParameter SWIFT_WARN_UNUSED_RESULT;
 SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) WaboStatusCode * _Nonnull ErrorInternal;)
