@@ -1,7 +1,7 @@
 framework module WaboShare {
   umbrella header "WaboShare.h"
-
   export *
+
   module * { export * }
 }
 

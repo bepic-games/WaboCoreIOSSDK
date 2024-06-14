@@ -1,7 +1,7 @@
 framework module WaboAdjust {
   umbrella header "WaboAdjust.h"
-
   export *
+
   module * { export * }
 }
 

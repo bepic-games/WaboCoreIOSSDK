@@ -1,7 +1,7 @@
 framework module WaboBridge {
   umbrella header "WaboBridge.h"
-
   export *
+
   module * { export * }
 }
 

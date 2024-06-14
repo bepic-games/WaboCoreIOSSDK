@@ -1,7 +1,7 @@
 framework module WaboSDK {
   umbrella header "WaboSDK.h"
-
   export *
+
   module * { export * }
 }
 

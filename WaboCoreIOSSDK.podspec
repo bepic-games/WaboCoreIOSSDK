@@ -1,6 +1,6 @@
 Pod::Spec.new do |spec|
   spec.name = "WaboCoreIOSSDK"
-  spec.version="0.1.16"
+  spec.version="0.1.21"
   spec.summary = "Wabo SDK core sdk"
   spec.description= <<-DESC
   Wabo SDK for core
@@ -20,4 +20,5 @@ Pod::Spec.new do |spec|
   spec.dependency 'Adjust', '4.32.1'
   spec.dependency 'Bugly', '2.5.91'
   spec.dependency 'GoogleUserMessagingPlatform', '2.1.0'
+  spec.dependency 'MatomaIOSSDK', '0.0.6'
 end

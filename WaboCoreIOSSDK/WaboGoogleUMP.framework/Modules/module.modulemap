@@ -1,7 +1,7 @@
 framework module WaboGoogleUMP {
   umbrella header "WaboGoogleUMP.h"
-
   export *
+
   module * { export * }
 }
 
