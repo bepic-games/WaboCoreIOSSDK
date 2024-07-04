@@ -346,7 +346,7 @@ SWIFT_CLASS("_TtC10WaboAdjust10WaboAdjust")
 ///
 /// returns:
 /// attribution id
-- (WaboBridgeResult * _Nonnull)getAttributionId SWIFT_WARN_UNUSED_RESULT;
+- (WaboBridgeResult * _Nonnull)getAttrId SWIFT_WARN_UNUSED_RESULT;
 /// get attribution info
 ///
 /// returns:
