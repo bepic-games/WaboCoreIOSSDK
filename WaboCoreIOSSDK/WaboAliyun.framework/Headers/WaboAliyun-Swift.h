@@ -307,6 +307,7 @@ SWIFT_CLASS("_TtC10WaboAliyun10WaboAliyun")
 @interface WaboAliyun : NSObject
 + (WaboAliyun * _Nonnull)sharedInstance SWIFT_WARN_UNUSED_RESULT;
 - (BOOL)hasInit SWIFT_WARN_UNUSED_RESULT;
+- (WaboBridgeResult * _Nonnull)hasInitOfResult SWIFT_WARN_UNUSED_RESULT;
 /// bridge version
 ///
 /// returns:
