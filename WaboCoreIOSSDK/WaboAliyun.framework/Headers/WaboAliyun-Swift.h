@@ -279,6 +279,7 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 #endif
 @import Foundation;
 @import ObjectiveC;
+@import WaboBase;
 #endif
 
 #endif
@@ -302,9 +303,10 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 @class WaboBridgeResult;
 @class NSString;
 @class WaboStaticInfo;
+@class WaboCustomEvent;
 
 SWIFT_CLASS("_TtC10WaboAliyun10WaboAliyun")
-@interface WaboAliyun : NSObject
+@interface WaboAliyun : NSObject <WaboThirdUploadLoggerProtocol>
 + (WaboAliyun * _Nonnull)sharedInstance SWIFT_WARN_UNUSED_RESULT;
 - (BOOL)hasInit SWIFT_WARN_UNUSED_RESULT;
 - (WaboBridgeResult * _Nonnull)hasInitOfResult SWIFT_WARN_UNUSED_RESULT;
@@ -323,6 +325,15 @@ SWIFT_CLASS("_TtC10WaboAliyun10WaboAliyun")
 - (void)setClientIp:(NSString * _Nonnull)clientIp;
 - (void)log:(NSString * _Nonnull)eventName :(NSDictionary<NSString *, id> * _Nonnull)params;
 - (void)setWaboAliyunInitDelegate:(void (^ _Nonnull)(id _Nullable))delegate;
+- (void)logThirdEventWithCustomEvent:(WaboCustomEvent * _Nonnull)customEvent;
+- (void)uploadAdLoad:(NSString * _Nonnull)mediationType :(NSString * _Nonnull)unitId :(NSString * _Nonnull)adtype;
+- (void)uploadAdLoadFail:(NSString * _Nonnull)mediationType :(NSString * _Nonnull)unitId :(NSString * _Nonnull)adtype :(NSInteger)code :(NSString * _Nonnull)messsage;
+- (void)uploadAdShow:(NSString * _Nonnull)network_firm_id :(NSString * _Nonnull)adsource_id :(NSString * _Nonnull)network_placement_id :(NSString * _Nonnull)mediationType :(NSString * _Nonnull)unitId :(NSString * _Nonnull)adtype :(double)revenue;
+- (void)uploadAdClick:(NSString * _Nonnull)network_firm_id :(NSString * _Nonnull)adsource_id :(NSString * _Nonnull)network_placement_id :(NSString * _Nonnull)mediationType :(NSString * _Nonnull)unitId :(NSString * _Nonnull)adtype;
+- (void)addToCart:(double)price :(NSString * _Nonnull)currency :(NSString * _Nonnull)contentId;
+- (void)initCheckout:(double)price :(NSString * _Nonnull)currency :(NSString * _Nonnull)contentId SWIFT_METHOD_FAMILY(none);
+- (void)purchase:(double)price :(NSString * _Nonnull)currency :(NSString * _Nonnull)contentId;
+- (void)subscription:(double)price :(NSString * _Nonnull)currency :(NSString * _Nonnull)orderId;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
 

@@ -303,6 +303,7 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 @class WaboBridgeResult;
 @class NSString;
 @class ADJAttribution;
+@class WaboCustomEvent;
 
 /// Adjust Module
 SWIFT_CLASS("_TtC10WaboAdjust10WaboAdjust")
@@ -355,6 +356,7 @@ SWIFT_CLASS("_TtC10WaboAdjust10WaboAdjust")
 - (void)setWaboAdjustInitDelegate:(void (^ _Nonnull)(id _Nullable))delegate;
 - (void)setWaboAdjustAttributeChangedDelegate:(void (^ _Nonnull)(id _Nullable))delegate;
 - (void)adjustAttributionChanged:(ADJAttribution * _Nullable)attribution;
+- (void)logThirdEventWithCustomEvent:(WaboCustomEvent * _Nonnull)customEvent;
 - (void)gameStart;
 - (void)registerEvent;
 - (void)login;

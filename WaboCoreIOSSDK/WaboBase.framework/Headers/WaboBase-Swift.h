@@ -311,6 +311,45 @@ SWIFT_CLASS("_TtC8WaboBase19URLSessionExtension")
 @end
 
 
+@class NSString;
+
+SWIFT_CLASS("_TtC8WaboBase15WaboCustomEvent")
+@interface WaboCustomEvent : NSObject
+@property (nonatomic, copy) NSString * _Nullable eventTag;
+@property (nonatomic, copy) NSString * _Nullable eventName;
+@property (nonatomic, copy) NSDictionary<NSString *, id> * _Nullable logs;
+@property (nonatomic, copy) NSDictionary<NSString *, id> * _Nullable partnerParameter;
+@property (nonatomic, copy) NSDictionary<NSString *, id> * _Nullable callbackParameter;
+@property (nonatomic, copy) NSDictionary<NSString *, id> * _Nullable revenue;
+@property (nonatomic, copy) NSString * _Nullable callbackId;
+@property (nonatomic, copy) NSString * _Nullable orderId;
+@property (nonatomic, copy) NSString * _Nullable productId;
+@property (nonatomic, copy) NSString * _Nullable purchaseToken;
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+@end
+
+
+SWIFT_CLASS("_TtC8WaboBase12WaboEventTag")
+@interface WaboEventTag : NSObject
+SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, copy) NSString * _Nonnull EVENT_TAG_AD_LOAD;)
++ (NSString * _Nonnull)EVENT_TAG_AD_LOAD SWIFT_WARN_UNUSED_RESULT;
+SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, copy) NSString * _Nonnull EVENT_TAG_AD_LOAD_FAIL;)
++ (NSString * _Nonnull)EVENT_TAG_AD_LOAD_FAIL SWIFT_WARN_UNUSED_RESULT;
+SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, copy) NSString * _Nonnull EVENT_TAG_AD_SHOW;)
++ (NSString * _Nonnull)EVENT_TAG_AD_SHOW SWIFT_WARN_UNUSED_RESULT;
+SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, copy) NSString * _Nonnull EVENT_TAG_AD_CLICK;)
++ (NSString * _Nonnull)EVENT_TAG_AD_CLICK SWIFT_WARN_UNUSED_RESULT;
+SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, copy) NSString * _Nonnull EVENT_TAG_ADD_TO_CART;)
++ (NSString * _Nonnull)EVENT_TAG_ADD_TO_CART SWIFT_WARN_UNUSED_RESULT;
+SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, copy) NSString * _Nonnull EVENT_TAG_INIT_CHECKOUT;)
++ (NSString * _Nonnull)EVENT_TAG_INIT_CHECKOUT SWIFT_WARN_UNUSED_RESULT;
+SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, copy) NSString * _Nonnull EVENT_TAG_PURCHASE;)
++ (NSString * _Nonnull)EVENT_TAG_PURCHASE SWIFT_WARN_UNUSED_RESULT;
+SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, copy) NSString * _Nonnull EVENT_TAG_SUBSCRIPTION;)
++ (NSString * _Nonnull)EVENT_TAG_SUBSCRIPTION SWIFT_WARN_UNUSED_RESULT;
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+@end
+
 
 /// 日志工具
 SWIFT_CLASS("_TtC8WaboBase7WaboLog")
@@ -325,7 +364,6 @@ SWIFT_CLASS("_TtC8WaboBase20WaboLoginThirdResult")
 + (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
 @end
 
-@class NSString;
 
 SWIFT_CLASS("_TtC8WaboBase13WaboLoginType")
 @interface WaboLoginType : NSObject
@@ -440,6 +478,7 @@ SWIFT_CLASS("_TtC8WaboBase21WaboStatusCodeBuilder")
 SWIFT_PROTOCOL("_TtP8WaboBase29WaboThirdUploadLoggerProtocol_")
 @protocol WaboThirdUploadLoggerProtocol <NSObject>
 @optional
+- (void)logThirdEventWithCustomEvent:(WaboCustomEvent * _Nonnull)customEvent;
 - (void)gameStart;
 - (void)registerEvent;
 - (void)login;
@@ -451,6 +490,10 @@ SWIFT_PROTOCOL("_TtP8WaboBase29WaboThirdUploadLoggerProtocol_")
 - (void)subscription:(double)price :(NSString * _Nonnull)currency :(NSString * _Nonnull)orderId;
 - (void)adShow:(NSString * _Nonnull)adType :(NSString * _Nonnull)mediationPlatform :(NSString * _Nonnull)networkName :(NSString * _Nonnull)displayName :(NSString * _Nonnull)adUnitId :(double)revenue;
 - (void)log:(NSString * _Nonnull)eventName :(NSDictionary<NSString *, id> * _Nonnull)params;
+- (void)uploadAdLoad:(NSString * _Nonnull)mediationType :(NSString * _Nonnull)unitId :(NSString * _Nonnull)adtype;
+- (void)uploadAdLoadFail:(NSString * _Nonnull)mediationType :(NSString * _Nonnull)unitId :(NSString * _Nonnull)adtype :(NSInteger)code :(NSString * _Nonnull)messsage;
+- (void)uploadAdShow:(NSString * _Nonnull)network_firm_id :(NSString * _Nonnull)adsource_id :(NSString * _Nonnull)network_placement_id :(NSString * _Nonnull)mediationType :(NSString * _Nonnull)unitId :(NSString * _Nonnull)adtype :(double)revenue;
+- (void)uploadAdClick:(NSString * _Nonnull)network_firm_id :(NSString * _Nonnull)adsource_id :(NSString * _Nonnull)network_placement_id :(NSString * _Nonnull)mediationType :(NSString * _Nonnull)unitId :(NSString * _Nonnull)adtype;
 @end
 
 
@@ -458,6 +501,7 @@ SWIFT_CLASS("_TtC8WaboBase28WaboThirdUploadLoggerService")
 @interface WaboThirdUploadLoggerService : NSObject
 + (WaboThirdUploadLoggerService * _Nonnull)sharedInstance SWIFT_WARN_UNUSED_RESULT;
 @property (nonatomic, copy) NSArray<id <WaboThirdUploadLoggerProtocol>> * _Nonnull loggers;
+- (void)logThirdEventWithCustomEvent:(WaboCustomEvent * _Nonnull)customEvent;
 - (void)gameStart;
 - (void)registerEvent;
 - (void)login;
@@ -468,6 +512,10 @@ SWIFT_CLASS("_TtC8WaboBase28WaboThirdUploadLoggerService")
 - (void)incRevenue:(double)revenue;
 - (void)subscription:(double)price :(NSString * _Nonnull)currency :(NSString * _Nonnull)orderId;
 - (void)adShow:(NSString * _Nonnull)adType :(NSString * _Nonnull)mediationPlatform :(NSString * _Nonnull)networkName :(NSString * _Nonnull)displayName :(NSString * _Nonnull)adUnitId :(double)revenue;
+- (void)uploadAdLoad:(NSString * _Nonnull)mediationType :(NSString * _Nonnull)unitId :(NSString * _Nonnull)adtype;
+- (void)uploadAdLoadFail:(NSString * _Nonnull)mediationType :(NSString * _Nonnull)unitId :(NSString * _Nonnull)adtype :(NSInteger)code :(NSString * _Nonnull)messsage;
+- (void)uploadAdShow:(NSString * _Nonnull)network_firm_id :(NSString * _Nonnull)adsource_id :(NSString * _Nonnull)network_placement_id :(NSString * _Nonnull)mediationType :(NSString * _Nonnull)unitId :(NSString * _Nonnull)adtype :(double)revenue;
+- (void)uploadAdClick:(NSString * _Nonnull)network_firm_id :(NSString * _Nonnull)adsource_id :(NSString * _Nonnull)network_placement_id :(NSString * _Nonnull)mediationType :(NSString * _Nonnull)unitId :(NSString * _Nonnull)adtype;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
 

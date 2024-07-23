@@ -580,12 +580,14 @@ SWIFT_CLASS("_TtC7WaboSDK7WaboSDK")
 @end
 
 @class NSDate;
+@class WaboCustomEvent;
 
 @interface WaboSDK (SWIFT_EXTENSION(WaboSDK))
 - (void)onLog:(NSString * _Nonnull)eventName paramMap:(NSDictionary<NSString *, id> * _Nonnull)paramMap;
 - (void)onLogPaySuccess:(NSString * _Nonnull)store transactionId:(NSString * _Nonnull)transactionId productId:(NSString * _Nonnull)productId purchaseDate:(NSDate * _Nonnull)purchaseDate price:(double)price priceString:(NSString * _Nonnull)priceString currency:(NSString * _Nonnull)currency;
 - (void)onUploadIntoGame:(NSString * _Nullable)server_id server_name:(NSString * _Nullable)server_name role_id:(NSString * _Nullable)role_id role_name:(NSString * _Nullable)role_name;
 - (void)onLogWithJson:(NSString * _Nonnull)jsonString;
+- (void)onUploadCustomEvent:(WaboCustomEvent * _Nonnull)customEvent;
 @end
 
 enum WaboUMPDebugGeography : NSInteger;
