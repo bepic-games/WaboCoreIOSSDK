@@ -301,8 +301,8 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 
 #if defined(__OBJC__)
 @class WaboBridgeResult;
-@class NSString;
 @class WaboStaticInfo;
+@class NSString;
 @class WaboCustomEvent;
 
 SWIFT_CLASS("_TtC10WaboAliyun10WaboAliyun")
@@ -310,6 +310,7 @@ SWIFT_CLASS("_TtC10WaboAliyun10WaboAliyun")
 + (WaboAliyun * _Nonnull)sharedInstance SWIFT_WARN_UNUSED_RESULT;
 - (BOOL)hasInit SWIFT_WARN_UNUSED_RESULT;
 - (WaboBridgeResult * _Nonnull)hasInitOfResult SWIFT_WARN_UNUSED_RESULT;
+- (WaboBridgeResult * _Nonnull)updateStaticInfo:(WaboStaticInfo * _Nonnull)staticInfo SWIFT_WARN_UNUSED_RESULT;
 /// bridge version
 ///
 /// returns:
