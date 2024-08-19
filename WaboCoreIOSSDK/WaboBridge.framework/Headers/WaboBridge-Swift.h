@@ -303,6 +303,8 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 SWIFT_CLASS("_TtC10WaboBridge10WaboBridge")
 @interface WaboBridge : NSObject
 + (BOOL)scan:(NSString * _Nonnull)className SWIFT_WARN_UNUSED_RESULT;
++ (id _Nullable)performWithClassName:(NSString * _Nonnull)className methodName:(NSString * _Nonnull)methodName arg0:(id _Nullable)arg0 SWIFT_WARN_UNUSED_RESULT;
++ (id _Nullable)performWithClassName:(NSString * _Nonnull)className methodName:(NSString * _Nonnull)methodName arg0:(id _Nonnull)arg0 arg1:(id _Nonnull)arg1 SWIFT_WARN_UNUSED_RESULT;
 + (id _Nonnull)invokeWithClassName:(NSString * _Nonnull)className methodName:(NSString * _Nonnull)methodName arg0:(id _Nullable)arg0 SWIFT_WARN_UNUSED_RESULT;
 + (id _Nonnull)invokeWithClassName:(NSString * _Nonnull)className methodName:(NSString * _Nonnull)methodName arg0:(id _Nonnull)arg0 arg1:(id _Nonnull)arg1 arg2:(id _Nullable)arg2 SWIFT_WARN_UNUSED_RESULT;
 + (id _Nonnull)invokeClassMethodWithClassName:(NSString * _Nonnull)className methodName:(NSString * _Nonnull)methodName arg0:(id _Nullable)arg0 SWIFT_WARN_UNUSED_RESULT;

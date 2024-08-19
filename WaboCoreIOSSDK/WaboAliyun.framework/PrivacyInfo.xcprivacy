@@ -6,24 +6,5 @@
 	<false/>
 	<key>NSPrivacyTrackingDomains</key>
 	<array/>
-	<key>NSPrivacyAccessedAPITypes</key>
-	<array>
-		<dict/>
-	</array>
-	<key>NSPrivacyCollectedDataTypes</key>
-	<array>
-		<dict>
-			<key>NSPrivacyCollectedDataType</key>
-			<string></string>
-			<key>NSPrivacyCollectedDataTypeLinked</key>
-			<false/>
-			<key>NSPrivacyCollectedDataTypeTracking</key>
-			<false/>
-			<key>NSPrivacyCollectedDataTypePurposes</key>
-			<array>
-				<string></string>
-			</array>
-		</dict>
-	</array>
 </dict>
 </plist>

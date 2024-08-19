@@ -277,6 +277,7 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 #if __has_warning("-Watimport-in-framework-header")
 #pragma clang diagnostic ignored "-Watimport-in-framework-header"
 #endif
+@import CoreFoundation;
 @import Foundation;
 @import ObjectiveC;
 @import UIKit;
@@ -334,11 +335,14 @@ SWIFT_CLASS("_TtC7WaboSDK22WaboAppsflyerAttribute")
 
 SWIFT_CLASS("_TtC7WaboSDK12WaboAttrInfo")
 @interface WaboAttrInfo : NSObject
+@property (nonatomic, copy) NSString * _Nullable trackerToken;
+@property (nonatomic, copy) NSString * _Nullable trackerName;
 @property (nonatomic, copy) NSString * _Nullable attrid;
 @property (nonatomic, copy) NSString * _Nullable network;
 @property (nonatomic, copy) NSString * _Nullable campaign;
 @property (nonatomic, copy) NSString * _Nullable adgroup;
 @property (nonatomic, copy) NSString * _Nullable creative;
+@property (nonatomic, copy) NSString * _Nullable fbInstallReferrer;
 + (WaboAttrInfoBuilder * _Nonnull)Builder SWIFT_WARN_UNUSED_RESULT;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
@@ -601,29 +605,6 @@ enum WaboUMPDebugGeography : NSInteger;
 @end
 
 
-@protocol WaboSDKAppopenAdDelegate;
-@protocol WaboSDKRewardAdDelegate;
-@protocol WaboSDKInterstitialAdDelegate;
-@protocol WaboSDKBannerAdDelegate;
-
-@interface WaboSDK (SWIFT_EXTENSION(WaboSDK))
-- (NSString * _Nonnull)getLoadingStatusSummary SWIFT_WARN_UNUSED_RESULT;
-- (BOOL)isRewardedAdReady:(NSString * _Nullable)placementId SWIFT_WARN_UNUSED_RESULT;
-- (void)showRewardedAd:(NSString * _Nullable)placementId;
-- (BOOL)isInterstitialAdReady:(NSString * _Nullable)placementId SWIFT_WARN_UNUSED_RESULT;
-- (void)showInterstitialAd:(NSString * _Nullable)placementId;
-- (BOOL)isBannerAdReady SWIFT_WARN_UNUSED_RESULT;
-- (void)showBannerAd;
-- (void)hideBannerAd;
-- (void)showBannerAdTop;
-- (void)showBannerAdWithPosition:(float)x :(float)y;
-- (void)showAppopenAdWithTimeout:(float)timeout;
-- (void)setWaboAppopenAdDelegate:(id <WaboSDKAppopenAdDelegate> _Nonnull)delegate;
-- (void)setWaboRewardAdDelegate:(id <WaboSDKRewardAdDelegate> _Nonnull)delegate;
-- (void)setWaboInterstitialAdDelegate:(id <WaboSDKInterstitialAdDelegate> _Nonnull)delegate;
-- (void)setWaboBannerAdDelegate:(id <WaboSDKBannerAdDelegate> _Nonnull)delegate;
-@end
-
 @class WaboUserInfoResult;
 @class WaboSignOutResult;
 
@@ -633,6 +614,7 @@ enum WaboUMPDebugGeography : NSInteger;
 @property (nonatomic, readonly) int64_t gameAccountId;
 @property (nonatomic, readonly, copy) NSString * _Nullable sessionToken;
 - (NSArray<NSString *> * _Nonnull)getLoginTypes SWIFT_WARN_UNUSED_RESULT;
+- (void)uploadRoleLogin:(NSString * _Nonnull)serverId serverName:(NSString * _Nonnull)serverName roleId:(NSString * _Nonnull)roleId roleName:(NSString * _Nonnull)roleName;
 - (void)autoLoginAsync:(BOOL)needGameCenter success:(void (^ _Nonnull)(WaboAutoLoginResult * _Nonnull))success failed:(void (^ _Nonnull)(WaboStatusCode * _Nonnull))failed;
 - (void)checkLoginAsync:(void (^ _Nonnull)(WaboCheckLoginResult * _Nonnull))success failed:(void (^ _Nonnull)(WaboStatusCode * _Nonnull))failed;
 - (void)loginWithTypeAsync:(NSString * _Nonnull)loginType success:(void (^ _Nonnull)(WaboLoginResult * _Nonnull))success failed:(void (^ _Nonnull)(WaboStatusCode * _Nonnull))failed;
@@ -644,6 +626,37 @@ enum WaboUMPDebugGeography : NSInteger;
 - (void)getBindTransferCode:(void (^ _Nonnull)(WaboGetBindTransferCodeResult * _Nullable))success failed:(void (^ _Nonnull)(WaboStatusCode * _Nonnull))failed;
 - (void)generateTransferCode:(void (^ _Nonnull)(WaboGenerateTransferCodeResult * _Nonnull))success failed:(void (^ _Nonnull)(WaboStatusCode * _Nonnull))failed;
 - (void)bindTransferCode:(NSString * _Nonnull)transferCode success:(void (^ _Nonnull)(WaboBindTransferCodeResult * _Nonnull))success failed:(void (^ _Nonnull)(WaboStatusCode * _Nonnull))failed;
+@end
+
+@class UIView;
+@protocol WaboSDKAppopenAdDelegate;
+@protocol WaboSDKRewardAdDelegate;
+@protocol WaboSDKInterstitialAdDelegate;
+@protocol WaboSDKBannerAdDelegate;
+
+@interface WaboSDK (SWIFT_EXTENSION(WaboSDK))
+- (NSString * _Nonnull)getLoadingStatusSummary SWIFT_WARN_UNUSED_RESULT;
+- (BOOL)isRewardedAdReady:(NSString * _Nullable)placementId SWIFT_WARN_UNUSED_RESULT;
+- (void)showRewardedAd:(NSString * _Nullable)placementId;
+- (BOOL)isInterstitialAdReady:(NSString * _Nullable)placementId SWIFT_WARN_UNUSED_RESULT;
+- (void)showInterstitialAd:(NSString * _Nullable)placementId;
+- (void)setBannerCustomMode:(BOOL)bannerCustomMode;
+- (UIView * _Nullable)createBanner SWIFT_WARN_UNUSED_RESULT;
+- (void)destroyBanner;
+- (CGSize)getBannerSize SWIFT_WARN_UNUSED_RESULT;
+- (BOOL)isBannerAdReady SWIFT_WARN_UNUSED_RESULT;
+- (void)showBannerAd;
+- (void)hideBannerAd;
+- (void)showBannerAdTop;
+- (void)showBannerAdBottom;
+- (void)showBannerAdTopOfSafe;
+- (void)showBannerAdBottomOfSafe;
+- (void)showBannerAdWithPosition:(float)x :(float)y;
+- (void)showAppopenAdWithTimeout:(float)timeout;
+- (void)setWaboAppopenAdDelegate:(id <WaboSDKAppopenAdDelegate> _Nonnull)delegate;
+- (void)setWaboRewardAdDelegate:(id <WaboSDKRewardAdDelegate> _Nonnull)delegate;
+- (void)setWaboInterstitialAdDelegate:(id <WaboSDKInterstitialAdDelegate> _Nonnull)delegate;
+- (void)setWaboBannerAdDelegate:(id <WaboSDKBannerAdDelegate> _Nonnull)delegate;
 @end
 
 @class WaboShopItem;
@@ -666,6 +679,8 @@ enum WaboUMPDebugGeography : NSInteger;
 
 SWIFT_PROTOCOL("_TtP7WaboSDK24WaboSDKAppopenAdDelegate_")
 @protocol WaboSDKAppopenAdDelegate <NSObject>
+- (void)onWaboAppopenAdDidLoad:(NSString * _Nonnull)adUnitId callback:(WaboAdCallbackInfo * _Nonnull)callbackInfo;
+- (void)onWaboAppopenAdDidFailToLoadAd:(NSString * _Nonnull)adUnitId errorCode:(NSInteger)errorCode errorMsg:(NSString * _Nonnull)errorMsg;
 - (void)onWaboAppopenAdDidDisplay:(NSString * _Nonnull)adUnitId callback:(WaboAdCallbackInfo * _Nonnull)callbackInfo;
 - (void)onWaboAppopenAdDidHide:(NSString * _Nonnull)adUnitId callback:(WaboAdCallbackInfo * _Nonnull)callbackInfo;
 - (void)onWaboAppopenAdDidClick:(NSString * _Nonnull)adUnitId callback:(WaboAdCallbackInfo * _Nonnull)callbackInfo;
@@ -676,6 +691,8 @@ SWIFT_PROTOCOL("_TtP7WaboSDK24WaboSDKAppopenAdDelegate_")
 
 SWIFT_PROTOCOL("_TtP7WaboSDK23WaboSDKBannerAdDelegate_")
 @protocol WaboSDKBannerAdDelegate <NSObject>
+- (void)onWaboBannerAdDidLoad:(NSString * _Nonnull)adUnitId callback:(WaboAdCallbackInfo * _Nonnull)callbackInfo;
+- (void)onWaboBannerAdDidFailToLoadAd:(NSString * _Nonnull)adUnitId errorCode:(NSInteger)errorCode errorMsg:(NSString * _Nonnull)errorMsg;
 - (void)onWaboBannerAdDidDisplay:(NSString * _Nonnull)adUnitId callback:(WaboAdCallbackInfo * _Nonnull)callbackInfo;
 - (void)onWaboBannerAdDidHide:(NSString * _Nonnull)adUnitId callback:(WaboAdCallbackInfo * _Nonnull)callbackInfo;
 - (void)onWaboBannerAdDidExpand:(NSString * _Nonnull)adUnitId callback:(WaboAdCallbackInfo * _Nonnull)callbackInfo;
@@ -704,6 +721,8 @@ SWIFT_PROTOCOL("_TtP7WaboSDK15WaboSDKDelegate_")
 
 SWIFT_PROTOCOL("_TtP7WaboSDK29WaboSDKInterstitialAdDelegate_")
 @protocol WaboSDKInterstitialAdDelegate <NSObject>
+- (void)onWaboInterstitialAdDidLoad:(NSString * _Nonnull)adUnitId callback:(WaboAdCallbackInfo * _Nonnull)callbackInfo;
+- (void)onWaboInterstitialAdDidFailToLoadAd:(NSString * _Nonnull)adUnitId errorCode:(NSInteger)errorCode errorMsg:(NSString * _Nonnull)errorMsg;
 - (void)onWaboInterstitialAdDidDisplay:(NSString * _Nonnull)adUnitId callback:(WaboAdCallbackInfo * _Nonnull)callbackInfo;
 - (void)onWaboInterstitialAdDidHide:(NSString * _Nonnull)adUnitId callback:(WaboAdCallbackInfo * _Nonnull)callbackInfo;
 - (void)onWaboInterstitialAdDidClick:(NSString * _Nonnull)adUnitId callback:(WaboAdCallbackInfo * _Nonnull)callbackInfo;
@@ -713,6 +732,8 @@ SWIFT_PROTOCOL("_TtP7WaboSDK29WaboSDKInterstitialAdDelegate_")
 SWIFT_PROTOCOL("_TtP7WaboSDK23WaboSDKRewardAdDelegate_")
 @protocol WaboSDKRewardAdDelegate <NSObject>
 - (void)onWaboRewardAdDidRewardUser:(NSString * _Nonnull)adUnitId callback:(WaboAdCallbackInfo * _Nonnull)callbackInfo;
+- (void)onWaboRewardAdDidLoad:(NSString * _Nonnull)adUnitId callback:(WaboAdCallbackInfo * _Nonnull)callbackInfo;
+- (void)onWaboRewardAdDidFailToLoadAd:(NSString * _Nonnull)adUnitId errorCode:(NSInteger)errorCode errorMsg:(NSString * _Nonnull)errorMsg;
 - (void)onWaboRewardAdDidDisplay:(NSString * _Nonnull)adUnitId callback:(WaboAdCallbackInfo * _Nonnull)callbackInfo;
 - (void)onWaboRewardAdDidHide:(NSString * _Nonnull)adUnitId callback:(WaboAdCallbackInfo * _Nonnull)callbackInfo;
 - (void)onWaboRewardAdDidClick:(NSString * _Nonnull)adUnitId callback:(WaboAdCallbackInfo * _Nonnull)callbackInfo;
