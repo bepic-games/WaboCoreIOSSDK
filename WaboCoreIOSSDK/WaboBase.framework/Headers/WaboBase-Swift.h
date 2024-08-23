@@ -380,6 +380,21 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, copy) NSString * _No
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
 
+
+SWIFT_CLASS("_TtC8WaboBase18WaboNativeAdBinder")
+@interface WaboNativeAdBinder : NSObject
+- (void)xibName:(NSString * _Nonnull)xibName;
+- (void)titleLabelTag:(NSInteger)titleLabelTag;
+- (void)bodyLabelTag:(NSInteger)bodyLabelTag;
+- (void)iconImageViewTag:(NSInteger)iconImageViewTag;
+- (void)mediaContentViewTag:(NSInteger)mediaContentViewTag;
+- (void)starRatingContentViewTag:(NSInteger)starRatingContentViewTag;
+- (void)advertiserLabelTag:(NSInteger)advertiserLabelTag;
+- (void)optionsContentViewTag:(NSInteger)optionsContentViewTag;
+- (void)callToActionButtonTag:(NSInteger)callToActionButtonTag;
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+@end
+
 @class UIApplication;
 @class NSURL;
 @class UIScene;

@@ -335,8 +335,8 @@ SWIFT_CLASS("_TtC7WaboSDK22WaboAppsflyerAttribute")
 
 SWIFT_CLASS("_TtC7WaboSDK12WaboAttrInfo")
 @interface WaboAttrInfo : NSObject
-@property (nonatomic, copy) NSString * _Nullable trackerToken;
-@property (nonatomic, copy) NSString * _Nullable trackerName;
+@property (nonatomic, copy) NSString * _Nonnull trackerToken;
+@property (nonatomic, copy) NSString * _Nonnull trackerName;
 @property (nonatomic, copy) NSString * _Nullable attrid;
 @property (nonatomic, copy) NSString * _Nullable network;
 @property (nonatomic, copy) NSString * _Nullable campaign;
@@ -556,6 +556,15 @@ SWIFT_CLASS("_TtC7WaboSDK7WaboSDK")
 - (NSString * _Nullable)getAttrId SWIFT_WARN_UNUSED_RESULT;
 @end
 
+@class WaboStatusCode;
+@class UIImage;
+
+@interface WaboSDK (SWIFT_EXTENSION(WaboSDK))
+- (NSArray<NSString *> * _Nonnull)getShareTypes SWIFT_WARN_UNUSED_RESULT;
+- (void)shareLink:(NSString * _Nonnull)shareType url:(NSString * _Nonnull)url success:(void (^ _Nonnull)(NSString * _Nonnull))success failed:(void (^ _Nonnull)(WaboStatusCode * _Nonnull))failed;
+- (void)sharePhoto:(NSString * _Nonnull)shareType image:(UIImage * _Nonnull)image success:(void (^ _Nonnull)(NSString * _Nonnull))success failed:(void (^ _Nonnull)(WaboStatusCode * _Nonnull))failed;
+@end
+
 @class UIApplication;
 @class NSURL;
 @class UIScene;
@@ -565,15 +574,6 @@ SWIFT_CLASS("_TtC7WaboSDK7WaboSDK")
 - (BOOL)application:(UIApplication * _Nonnull)application openURL:(NSURL * _Nonnull)url options:(NSDictionary<UIApplicationOpenURLOptionsKey, id> * _Nonnull)options SWIFT_WARN_UNUSED_RESULT;
 - (BOOL)application:(UIApplication * _Nonnull)application openURL:(NSURL * _Nonnull)url sourceApplication:(NSString * _Nullable)sourceApplication annotation:(id _Nonnull)annotation SWIFT_WARN_UNUSED_RESULT;
 - (void)scene:(UIScene * _Nonnull)scene openURLContexts:(NSSet<UIOpenURLContext *> * _Nonnull)URLContexts SWIFT_AVAILABILITY(ios,introduced=13.0);
-@end
-
-@class WaboStatusCode;
-@class UIImage;
-
-@interface WaboSDK (SWIFT_EXTENSION(WaboSDK))
-- (NSArray<NSString *> * _Nonnull)getShareTypes SWIFT_WARN_UNUSED_RESULT;
-- (void)shareLink:(NSString * _Nonnull)shareType url:(NSString * _Nonnull)url success:(void (^ _Nonnull)(NSString * _Nonnull))success failed:(void (^ _Nonnull)(WaboStatusCode * _Nonnull))failed;
-- (void)sharePhoto:(NSString * _Nonnull)shareType image:(UIImage * _Nonnull)image success:(void (^ _Nonnull)(NSString * _Nonnull))success failed:(void (^ _Nonnull)(WaboStatusCode * _Nonnull))failed;
 @end
 
 
@@ -629,6 +629,8 @@ enum WaboUMPDebugGeography : NSInteger;
 @end
 
 @class UIView;
+@protocol WaboSDKNativeAdDelegate;
+@class WaboNativeAdBinder;
 @protocol WaboSDKAppopenAdDelegate;
 @protocol WaboSDKRewardAdDelegate;
 @protocol WaboSDKInterstitialAdDelegate;
@@ -653,6 +655,10 @@ enum WaboUMPDebugGeography : NSInteger;
 - (void)showBannerAdBottomOfSafe;
 - (void)showBannerAdWithPosition:(float)x :(float)y;
 - (void)showAppopenAdWithTimeout:(float)timeout;
+- (void)showSmallNativeAd:(id <WaboSDKNativeAdDelegate> _Nullable)delegate;
+- (void)showMediumNativeAd:(id <WaboSDKNativeAdDelegate> _Nullable)delegate;
+- (void)showManualNativeAdWithBinder:(WaboNativeAdBinder * _Nonnull)binder delegate:(id <WaboSDKNativeAdDelegate> _Nullable)delegate;
+- (void)destroyNativeAdView:(UIView * _Nonnull)view;
 - (void)setWaboAppopenAdDelegate:(id <WaboSDKAppopenAdDelegate> _Nonnull)delegate;
 - (void)setWaboRewardAdDelegate:(id <WaboSDKRewardAdDelegate> _Nonnull)delegate;
 - (void)setWaboInterstitialAdDelegate:(id <WaboSDKInterstitialAdDelegate> _Nonnull)delegate;
@@ -726,6 +732,15 @@ SWIFT_PROTOCOL("_TtP7WaboSDK29WaboSDKInterstitialAdDelegate_")
 - (void)onWaboInterstitialAdDidDisplay:(NSString * _Nonnull)adUnitId callback:(WaboAdCallbackInfo * _Nonnull)callbackInfo;
 - (void)onWaboInterstitialAdDidHide:(NSString * _Nonnull)adUnitId callback:(WaboAdCallbackInfo * _Nonnull)callbackInfo;
 - (void)onWaboInterstitialAdDidClick:(NSString * _Nonnull)adUnitId callback:(WaboAdCallbackInfo * _Nonnull)callbackInfo;
+@end
+
+
+SWIFT_PROTOCOL("_TtP7WaboSDK23WaboSDKNativeAdDelegate_")
+@protocol WaboSDKNativeAdDelegate <NSObject>
+- (void)onWaboNativeAdDidLoad:(NSString * _Nonnull)adUnitId callback:(WaboAdCallbackInfo * _Nonnull)callbackInfo view:(UIView * _Nullable)view;
+- (void)onWaboNativeAdDidFailToLoad:(NSString * _Nonnull)adUnitId errorCode:(NSInteger)errorCode errorMsg:(NSString * _Nonnull)errorMsg;
+- (void)onWaboNativeAdDidClick:(NSString * _Nonnull)adUnitId callback:(WaboAdCallbackInfo * _Nonnull)callbackInfo;
+- (void)onWaboNativeAdDidRevenue:(NSString * _Nonnull)adUnitId callback:(WaboAdCallbackInfo * _Nonnull)callbackInfo;
 @end
 
 
