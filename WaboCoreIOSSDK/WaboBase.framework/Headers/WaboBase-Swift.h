@@ -500,7 +500,7 @@ SWIFT_PROTOCOL("_TtP8WaboBase29WaboThirdUploadLoggerProtocol_")
 - (void)level:(NSInteger)level;
 - (void)addToCart:(double)price :(NSString * _Nonnull)currency :(NSString * _Nonnull)contentId;
 - (void)initCheckout:(double)price :(NSString * _Nonnull)currency :(NSString * _Nonnull)contentId SWIFT_METHOD_FAMILY(none);
-- (void)purchase:(double)price :(NSString * _Nonnull)currency :(NSString * _Nonnull)contentId;
+- (void)purchase:(double)price :(NSString * _Nonnull)currency :(NSString * _Nonnull)contentId :(NSString * _Nonnull)transacationId;
 - (void)incRevenue:(double)price;
 - (void)subscription:(double)price :(NSString * _Nonnull)currency :(NSString * _Nonnull)orderId;
 - (void)adShow:(NSString * _Nonnull)adType :(NSString * _Nonnull)mediationPlatform :(NSString * _Nonnull)networkName :(NSString * _Nonnull)displayName :(NSString * _Nonnull)adUnitId :(double)revenue;
@@ -523,7 +523,7 @@ SWIFT_CLASS("_TtC8WaboBase28WaboThirdUploadLoggerService")
 - (void)level:(NSInteger)level;
 - (void)addToCart:(double)price :(NSString * _Nonnull)currency :(NSString * _Nonnull)contentId;
 - (void)initCheckout:(double)price :(NSString * _Nonnull)currency :(NSString * _Nonnull)contentId SWIFT_METHOD_FAMILY(none);
-- (void)purchase:(double)price :(NSString * _Nonnull)currency :(NSString * _Nonnull)contentId;
+- (void)purchase:(double)price :(NSString * _Nonnull)currency :(NSString * _Nonnull)contentId :(NSString * _Nonnull)transacationId;
 - (void)incRevenue:(double)revenue;
 - (void)subscription:(double)price :(NSString * _Nonnull)currency :(NSString * _Nonnull)orderId;
 - (void)adShow:(NSString * _Nonnull)adType :(NSString * _Nonnull)mediationPlatform :(NSString * _Nonnull)networkName :(NSString * _Nonnull)displayName :(NSString * _Nonnull)adUnitId :(double)revenue;

@@ -333,7 +333,7 @@ SWIFT_CLASS("_TtC10WaboAliyun10WaboAliyun")
 - (void)uploadAdClick:(NSString * _Nonnull)network_firm_id :(NSString * _Nonnull)adsource_id :(NSString * _Nonnull)network_placement_id :(NSString * _Nonnull)mediationType :(NSString * _Nonnull)unitId :(NSString * _Nonnull)adtype;
 - (void)addToCart:(double)price :(NSString * _Nonnull)currency :(NSString * _Nonnull)contentId;
 - (void)initCheckout:(double)price :(NSString * _Nonnull)currency :(NSString * _Nonnull)contentId SWIFT_METHOD_FAMILY(none);
-- (void)purchase:(double)price :(NSString * _Nonnull)currency :(NSString * _Nonnull)contentId;
+- (void)purchase:(double)price :(NSString * _Nonnull)currency :(NSString * _Nonnull)contentId :(NSString * _Nonnull)transacationId;
 - (void)subscription:(double)price :(NSString * _Nonnull)currency :(NSString * _Nonnull)orderId;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end

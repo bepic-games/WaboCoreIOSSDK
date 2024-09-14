@@ -420,7 +420,7 @@ SWIFT_CLASS("_TtC7WaboSDK20WaboFirebaseAnalysis")
 - (void)adShow:(NSString * _Nonnull)adType :(NSString * _Nonnull)mediationPlatform :(NSString * _Nonnull)networkName :(NSString * _Nonnull)displayName :(NSString * _Nonnull)adUnitId :(double)revenue;
 - (void)addToCart:(double)price :(NSString * _Nonnull)currency :(NSString * _Nonnull)contentId;
 - (void)initCheckout:(double)price :(NSString * _Nonnull)currency :(NSString * _Nonnull)contentId SWIFT_METHOD_FAMILY(none);
-- (void)purchase:(double)price :(NSString * _Nonnull)currency :(NSString * _Nonnull)contentId;
+- (void)purchase:(double)price :(NSString * _Nonnull)currency :(NSString * _Nonnull)contentId :(NSString * _Nonnull)transacationId;
 - (void)incRevenue:(double)price;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
