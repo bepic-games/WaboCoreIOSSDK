@@ -629,6 +629,7 @@ enum WaboUMPDebugGeography : NSInteger;
 @end
 
 @class UIView;
+@class UIColor;
 @protocol WaboSDKNativeAdDelegate;
 @class WaboNativeAdBinder;
 @protocol WaboSDKAppopenAdDelegate;
@@ -646,6 +647,7 @@ enum WaboUMPDebugGeography : NSInteger;
 - (UIView * _Nullable)createBanner SWIFT_WARN_UNUSED_RESULT;
 - (void)destroyBanner;
 - (CGSize)getBannerSize SWIFT_WARN_UNUSED_RESULT;
+- (void)setBannerBackgroundColor:(UIColor * _Nonnull)color;
 - (BOOL)isBannerAdReady SWIFT_WARN_UNUSED_RESULT;
 - (void)showBannerAd;
 - (void)hideBannerAd;
