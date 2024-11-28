@@ -303,17 +303,6 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 
 #if defined(__OBJC__)
 @class NSString;
-@class NSBundle;
-@class NSCoder;
-
-SWIFT_CLASS("_TtC7WaboSDK26ISRegisterCenterController")
-@interface ISRegisterCenterController : UIViewController
-- (void)viewDidLoad;
-- (void)viewWillDisappear:(BOOL)animated;
-- (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil OBJC_DESIGNATED_INITIALIZER;
-- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)coder OBJC_DESIGNATED_INITIALIZER;
-@end
-
 
 SWIFT_CLASS("_TtC7WaboSDK18WaboAdCallbackInfo")
 @interface WaboAdCallbackInfo : NSObject
@@ -333,19 +322,6 @@ SWIFT_CLASS("_TtC7WaboSDK19WaboAdjustAttribute")
 
 SWIFT_CLASS("_TtC7WaboSDK19WaboAliyunLogUpload")
 @interface WaboAliyunLogUpload : NSObject
-- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
-@end
-
-@protocol WaboWebAdListener;
-
-SWIFT_CLASS("_TtC7WaboSDK7WaboApi")
-@interface WaboApi : NSObject
-+ (WaboApi * _Nonnull)sharedInstance SWIFT_WARN_UNUSED_RESULT;
-+ (void)setWebAdListener:(id <WaboWebAdListener> _Nonnull)listener;
-+ (BOOL)hasInitSDK SWIFT_WARN_UNUSED_RESULT;
-+ (void)doInit:(NSString * _Nonnull)host :(NSString * _Nonnull)network :(NSString * _Nonnull)campaign :(NSString * _Nonnull)packageName :(NSString * _Nonnull)deviceId;
-+ (BOOL)isReady SWIFT_WARN_UNUSED_RESULT;
-+ (void)showUrl;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
 
@@ -589,13 +565,6 @@ SWIFT_CLASS("_TtC7WaboSDK7WaboSDK")
 - (void)sharePhoto:(NSString * _Nonnull)shareType image:(UIImage * _Nonnull)image success:(void (^ _Nonnull)(NSString * _Nonnull))success failed:(void (^ _Nonnull)(WaboStatusCode * _Nonnull))failed;
 @end
 
-
-@interface WaboSDK (SWIFT_EXTENSION(WaboSDK))
-- (void)onMessaging:(NSString * _Nonnull)token;
-- (void)enableRemoteNotifications;
-- (void)disableRemoteNotifications;
-@end
-
 @class UIApplication;
 @class NSURL;
 @class UIScene;
@@ -605,6 +574,13 @@ SWIFT_CLASS("_TtC7WaboSDK7WaboSDK")
 - (BOOL)application:(UIApplication * _Nonnull)application openURL:(NSURL * _Nonnull)url options:(NSDictionary<UIApplicationOpenURLOptionsKey, id> * _Nonnull)options SWIFT_WARN_UNUSED_RESULT;
 - (BOOL)application:(UIApplication * _Nonnull)application openURL:(NSURL * _Nonnull)url sourceApplication:(NSString * _Nullable)sourceApplication annotation:(id _Nonnull)annotation SWIFT_WARN_UNUSED_RESULT;
 - (void)scene:(UIScene * _Nonnull)scene openURLContexts:(NSSet<UIOpenURLContext *> * _Nonnull)URLContexts SWIFT_AVAILABILITY(ios,introduced=13.0);
+@end
+
+
+@interface WaboSDK (SWIFT_EXTENSION(WaboSDK))
+- (void)onMessaging:(NSString * _Nonnull)token;
+- (void)enableRemoteNotifications;
+- (void)disableRemoteNotifications;
 @end
 
 @class NSDate;
@@ -628,32 +604,6 @@ enum WaboUMPDebugGeography : NSInteger;
 - (void)addTestDeviceHashedId:(NSString * _Nonnull)deviceHashedId;
 @end
 
-
-
-SWIFT_PROTOCOL("_TtP7WaboSDK17WaboWebAdListener_")
-@protocol WaboWebAdListener <NSObject>
-@optional
-- (void)onWebAdLoaded;
-- (void)onWebAdLoadFailed:(NSString * _Nonnull)errorMsg;
-- (void)onWebAdClose;
-- (void)onWebAdPlayStart;
-- (void)onWebAdPlayFailed:(NSString * _Nonnull)errorMsg;
-- (void)onWebAdReward:(NSString * _Nonnull)msg;
-@end
-
-@protocol WaboSDKWebAdDelegate;
-
-@interface WaboSDK (SWIFT_EXTENSION(WaboSDK)) <WaboWebAdListener>
-- (void)setWaboWebAdDelegate:(id <WaboSDKWebAdDelegate> _Nonnull)delegate;
-- (BOOL)isWebAdReady SWIFT_WARN_UNUSED_RESULT;
-- (void)showUrl;
-- (void)onWebAdLoaded;
-- (void)onWebAdLoadFailed:(NSString * _Nonnull)errorMsg;
-- (void)onWebAdClose;
-- (void)onWebAdPlayStart;
-- (void)onWebAdPlayFailed:(NSString * _Nonnull)errorMsg;
-- (void)onWebAdReward:(NSString * _Nonnull)msg;
-@end
 
 @class WaboUserInfoResult;
 @class WaboSignOutResult;
@@ -717,6 +667,14 @@ SWIFT_PROTOCOL("_TtP7WaboSDK17WaboWebAdListener_")
 - (void)setWaboBannerAdDelegate:(id <WaboSDKBannerAdDelegate> _Nonnull)delegate;
 @end
 
+@protocol WaboSDKWebAdDelegate;
+
+@interface WaboSDK (SWIFT_EXTENSION(WaboSDK))
+- (void)setWaboWebAdDelegate:(id <WaboSDKWebAdDelegate> _Nonnull)delegate;
+- (BOOL)isWebAdReady SWIFT_WARN_UNUSED_RESULT;
+- (void)showUrl;
+@end
+
 @class WaboShopItem;
 @class WaboSubscriptionItem;
 
@@ -732,6 +690,7 @@ SWIFT_PROTOCOL("_TtP7WaboSDK17WaboWebAdListener_")
 - (void)queryOneTimeItemAsync:(void (^ _Nonnull)(NSArray<WaboOneTimeItem *> * _Nonnull))success failed:(void (^ _Nonnull)(WaboStatusCode * _Nonnull))failed;
 - (void)querySubscriptionAsync:(void (^ _Nonnull)(NSArray<WaboSubscriptionItem *> * _Nonnull))success failed:(void (^ _Nonnull)(WaboStatusCode * _Nonnull))failed;
 - (void)onRestoreApplePurchases;
+- (void)onRestoreApplePurchasesWithCallback:(void (^ _Nonnull)(NSString * _Nonnull))callback;
 @end
 
 
@@ -885,7 +844,6 @@ SWIFT_CLASS("_TtC7WaboSDK18WaboUserInfoResult")
 @property (nonatomic, copy) NSArray<WaboLoginInfo *> * _Nullable loginInfo;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
-
 
 #endif
 #if __has_attribute(external_source_symbol)
