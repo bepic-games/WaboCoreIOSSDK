@@ -626,6 +626,7 @@ enum WaboUMPDebugGeography : NSInteger;
 - (void)getBindTransferCode:(void (^ _Nonnull)(WaboGetBindTransferCodeResult * _Nullable))success failed:(void (^ _Nonnull)(WaboStatusCode * _Nonnull))failed;
 - (void)generateTransferCode:(void (^ _Nonnull)(WaboGenerateTransferCodeResult * _Nonnull))success failed:(void (^ _Nonnull)(WaboStatusCode * _Nonnull))failed;
 - (void)bindTransferCode:(NSString * _Nonnull)transferCode success:(void (^ _Nonnull)(WaboBindTransferCodeResult * _Nonnull))success failed:(void (^ _Nonnull)(WaboStatusCode * _Nonnull))failed;
+- (void)bindTransferCodeAndReLogin:(NSString * _Nonnull)transferCode success:(void (^ _Nonnull)(WaboLoginResult * _Nonnull))success failed:(void (^ _Nonnull)(WaboStatusCode * _Nonnull))failed;
 @end
 
 @class UIView;
