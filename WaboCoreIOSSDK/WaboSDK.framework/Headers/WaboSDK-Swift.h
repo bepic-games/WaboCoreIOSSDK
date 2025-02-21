@@ -556,6 +556,19 @@ SWIFT_CLASS("_TtC7WaboSDK7WaboSDK")
 - (NSString * _Nullable)getAttrId SWIFT_WARN_UNUSED_RESULT;
 @end
 
+
+@interface WaboSDK (SWIFT_EXTENSION(WaboSDK))
+- (NSInteger)tryLaunchOrOpenAppStore:(NSString * _Nonnull)appURLScheme :(NSString * _Nonnull)appStoreURL :(NSDictionary<NSString *, id> * _Nullable)dataDict SWIFT_WARN_UNUSED_RESULT;
+- (void)setAppJumpDelegate:(void (^ _Nonnull)(NSDictionary<NSString *, id> * _Nonnull))delegate;
+@end
+
+
+@interface WaboSDK (SWIFT_EXTENSION(WaboSDK))
+- (void)onMessaging:(NSString * _Nonnull)token;
+- (void)enableRemoteNotifications;
+- (void)disableRemoteNotifications;
+@end
+
 @class WaboStatusCode;
 @class UIImage;
 
@@ -568,19 +581,15 @@ SWIFT_CLASS("_TtC7WaboSDK7WaboSDK")
 @class UIApplication;
 @class NSURL;
 @class UIScene;
+@class UISceneSession;
+@class UISceneConnectionOptions;
 @class UIOpenURLContext;
 
 @interface WaboSDK (SWIFT_EXTENSION(WaboSDK))
 - (BOOL)application:(UIApplication * _Nonnull)application openURL:(NSURL * _Nonnull)url options:(NSDictionary<UIApplicationOpenURLOptionsKey, id> * _Nonnull)options SWIFT_WARN_UNUSED_RESULT;
 - (BOOL)application:(UIApplication * _Nonnull)application openURL:(NSURL * _Nonnull)url sourceApplication:(NSString * _Nullable)sourceApplication annotation:(id _Nonnull)annotation SWIFT_WARN_UNUSED_RESULT;
+- (void)scene:(UIScene * _Nonnull)scene willConnectTo:(UISceneSession * _Nonnull)session options:(UISceneConnectionOptions * _Nonnull)connectionOptions SWIFT_AVAILABILITY(ios,introduced=13.0);
 - (void)scene:(UIScene * _Nonnull)scene openURLContexts:(NSSet<UIOpenURLContext *> * _Nonnull)URLContexts SWIFT_AVAILABILITY(ios,introduced=13.0);
-@end
-
-
-@interface WaboSDK (SWIFT_EXTENSION(WaboSDK))
-- (void)onMessaging:(NSString * _Nonnull)token;
-- (void)enableRemoteNotifications;
-- (void)disableRemoteNotifications;
 @end
 
 @class NSDate;

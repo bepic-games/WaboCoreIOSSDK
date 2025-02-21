@@ -398,6 +398,8 @@ SWIFT_CLASS("_TtC8WaboBase18WaboNativeAdBinder")
 @class UIApplication;
 @class NSURL;
 @class UIScene;
+@class UISceneSession;
+@class UISceneConnectionOptions;
 @class UIOpenURLContext;
 
 SWIFT_PROTOCOL("_TtP8WaboBase24WaboSDKLifecycleProtocol_")
@@ -405,6 +407,7 @@ SWIFT_PROTOCOL("_TtP8WaboBase24WaboSDKLifecycleProtocol_")
 @optional
 - (BOOL)application:(UIApplication * _Nonnull)application openURL:(NSURL * _Nonnull)url options:(NSDictionary<UIApplicationOpenURLOptionsKey, id> * _Nonnull)options SWIFT_WARN_UNUSED_RESULT;
 - (BOOL)application:(UIApplication * _Nonnull)application openURL:(NSURL * _Nonnull)url sourceApplication:(NSString * _Nullable)sourceApplication annotation:(id _Nonnull)annotation SWIFT_WARN_UNUSED_RESULT;
+- (void)scene:(UIScene * _Nonnull)scene willConnectTo:(UISceneSession * _Nonnull)session options:(UISceneConnectionOptions * _Nonnull)connectionOptions SWIFT_AVAILABILITY(ios,introduced=13.0);
 - (void)scene:(UIScene * _Nonnull)scene openURLContexts:(NSSet<UIOpenURLContext *> * _Nonnull)URLContexts SWIFT_AVAILABILITY(ios,introduced=13.0);
 @end
 
@@ -414,6 +417,7 @@ SWIFT_CLASS("_TtC8WaboBase23WaboSDKLifecycleService")
 + (WaboSDKLifecycleService * _Nonnull)sharedInstance SWIFT_WARN_UNUSED_RESULT;
 - (BOOL)application:(UIApplication * _Nonnull)application openURL:(NSURL * _Nonnull)url options:(NSDictionary<UIApplicationOpenURLOptionsKey, id> * _Nonnull)options SWIFT_WARN_UNUSED_RESULT;
 - (BOOL)application:(UIApplication * _Nonnull)application openURL:(NSURL * _Nonnull)url sourceApplication:(NSString * _Nullable)sourceApplication annotation:(id _Nonnull)annotation SWIFT_WARN_UNUSED_RESULT;
+- (void)scene:(UIScene * _Nonnull)scene willConnectTo:(UISceneSession * _Nonnull)session options:(UISceneConnectionOptions * _Nonnull)connectionOptions SWIFT_AVAILABILITY(ios,introduced=13.0);
 - (void)scene:(UIScene * _Nonnull)scene openURLContexts:(NSSet<UIOpenURLContext *> * _Nonnull)URLContexts SWIFT_AVAILABILITY(ios,introduced=13.0);
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
